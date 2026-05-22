@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wealthfront — Brittany Blackmon</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:#0d0a2e;color:#fff;overflow:hidden;height:100vh;}
+  .deck{width:100vw;height:100vh;position:relative;}
+  .slide{display:none;width:100%;height:100%;padding:52px 72px;flex-direction:column;justify-content:center;position:absolute;top:0;left:0;background:#0d0a2e;overflow:hidden;}
+  .slide.active{display:flex;}
+  .topbar{position:fixed;top:0;left:0;right:0;height:52px;background:rgba(13,10,46,0.95);border-bottom:1px solid rgba(107,70,255,0.2);display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:100;}
+  .topbar-logo{font-size:15px;font-weight:700;color:#6b46ff;}
+  .topbar-counter{font-size:12px;color:rgba(255,255,255,0.4);}
+  .slide-tag-pill{background:rgba(107,70,255,0.15);border:1px solid rgba(107,70,255,0.3);color:#a78bfa;padding:4px 14px;border-radius:20px;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600;}
+  .nav{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:100;align-items:center;}
+  .nav button{background:rgba(107,70,255,0.15);border:1px solid rgba(107,70,255,0.4);color:#fff;padding:10px 28px;border-radius:30px;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;transition:all 0.2s;}
+  .nav button:hover{background:rgba(107,70,255,0.35);}
+  .nav-dots{display:flex;gap:6px;}
+  .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:all 0.2s;}
+  .dot.active{background:#6b46ff;width:20px;border-radius:3px;}
+  h2{font-size:34px;font-weight:700;letter-spacing:-0.5px;margin-bottom:6px;}
+  p{font-size:14px;line-height:1.65;color:rgba(255,255,255,0.65);}
+  .subtitle{font-size:16px;color:rgba(255,255,255,0.5);margin-bottom:28px;font-weight:400;}
+  .label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#6b46ff;font-weight:700;margin-bottom:8px;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;}
+  .card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:20px;}
+  .card-purple{border-left:3px solid #6b46ff;}
+  .card-green{border-left:3px solid #34d399;}
+  .card-pink{border-left:3px solid #f472b6;}
+  .card-indigo{background:rgba(107,70,255,0.08);border:1px solid rgba(107,70,255,0.2);border-radius:14px;padding:20px;}
+  .tl{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start;}
+  .tl-dot{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#6b46ff,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;}
+  .tl h4{font-size:13px;font-weight:600;margin-bottom:3px;}
+  .tl p{font-size:12px;}
+  .tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin:2px;}
+  .tag-purple{background:rgba(107,70,255,0.15);color:#a78bfa;border:1px solid rgba(107,70,255,0.3);}
+  .tag-green{background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.3);}
+  .ch{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:4px 11px;font-size:11px;margin:2px;}
+  .hl{background:rgba(107,70,255,0.08);border:1px solid rgba(107,70,255,0.25);border-radius:10px;padding:14px 18px;font-size:13px;font-style:italic;color:rgba(255,255,255,0.75);line-height:1.6;}
+  .rbadge{background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);border-radius:10px;padding:14px;text-align:center;}
+  .rbadge .n{font-size:26px;font-weight:800;color:#34d399;letter-spacing:-0.5px;}
+  .rbadge .l{font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px;}
+  .name-grad{background:linear-gradient(135deg,#fff 30%,#a78bfa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:58px;font-weight:800;letter-spacing:-1.5px;line-height:1;}
+  .pillar{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:18px;flex:1;}
+  .pillar h4{font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:6px;}
+  .canvas-box{border-radius:12px;padding:16px;}
+  .canvas-1{background:rgba(107,70,255,0.1);border:1px solid rgba(107,70,255,0.25);}
+  .canvas-2{background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);}
+  .canvas-3{background:rgba(244,114,182,0.08);border:1px solid rgba(244,114,182,0.2);}
+  .canvas-num{font-size:28px;font-weight:800;margin-bottom:6px;}
+  .phone-sm{width:100%;max-width:130px;background:#050505;border-radius:22px;padding:8px;border:1px solid #1f1f1f;margin:0 auto 8px;}
+  .phone-screen{border-radius:16px;background:linear-gradient(180deg,#2e0d49,#08131f);position:relative;overflow:hidden;padding:10px 8px;height:180px;}
+  .phone-time{text-align:center;color:white;font-size:22px;font-weight:300;margin-top:8px;}
+  .phone-date{text-align:center;color:#d9d9d9;font-size:10px;margin-bottom:8px;}
+  .phone-notif{position:absolute;bottom:10px;left:6px;right:6px;background:rgba(255,255,255,.84);backdrop-filter:blur(10px);padding:8px;border-radius:10px;color:#111;display:flex;gap:6px;}
+  .phone-icon{width:20px;height:20px;background:#1DB954;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#fff;}
+  .phone-notif-title{font-size:9px;font-weight:800;margin-bottom:2px;}
+  .phone-notif-body{font-size:8px;color:#444;line-height:1.3;}
+  .email-scroll{height:460px;overflow-y:auto;overflow-x:hidden;border-radius:16px;scrollbar-width:thin;scrollbar-color:#1DB954 transparent;}
+  .email-scroll::-webkit-scrollbar{width:4px;}
+  .email-scroll::-webkit-scrollbar-thumb{background:#1DB954;border-radius:4px;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-logo">Wealthfront</div>
+  <div id="tag-display" class="slide-tag-pill">Introduction</div>
+  <div class="topbar-counter" id="counter">1 / 12</div>
+</div>
+<div class="deck">
+
+<!-- SLIDE 1 -->
+<div class="slide active" id="slide-1" style="align-items:center;text-align:center;">
+  <div class="name-grad">Brittany Blackmon</div>
+  <div style="font-size:17px;color:rgba(255,255,255,0.45);margin-top:10px;margin-bottom:36px;">Lifecycle Marketing Leader · 0 to 1 Program Builder</div>
+  <div style="display:flex;gap:14px;margin-bottom:28px;width:100%;">
+    <div style="flex:1;text-align:left;"><div class="label">Experience</div><p style="font-size:14px;">Chime Financial — Referrals, Trust and Safety, Funding<br>Peloton — 6 global markets, 6M+ members</p></div>
+    <div style="flex:1;text-align:left;"><div class="label">Tools</div><p style="font-size:14px;">Braze · ExPlat · SQL · Looker · Amplitude · Iterable</p></div>
+    <div style="flex:1;text-align:left;"><div class="label">Approach</div><p style="font-size:14px;">Behavior-triggered automation · Holdout-based experimentation · Personalization at scale</p></div>
+  </div>
+  <div style="display:flex;gap:14px;width:100%;">
+    <div class="pillar" style="text-align:left;"><h4>Why Lifecycle</h4><p style="font-size:13px;">The best lifecycle marketing doesn't feel like marketing. It feels like the right conversation at exactly the right time.</p></div>
+    <div class="pillar" style="text-align:left;"><h4>Why Fintech</h4><p style="font-size:13px;">I've spent my career marketing to people at pivotal financial moments — people the system wasn't built for.</p></div>
+    <div class="pillar" style="text-align:left;"><h4>Why Wealthfront</h4><p style="font-size:13px;">Chime helps people stabilize. Wealthfront helps them grow. Same mission, next chapter. I want to build the programs that move people from surviving to thriving.</p></div>
+  </div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide" id="slide-2">
+  <h2>The Problem We Were Solving</h2>
+  <p class="subtitle">Chime's referral program was growing but direct deposit conversion wasn't keeping pace</p>
+  <div class="grid-2" style="margin-bottom:16px;">
+    <div class="card card-purple"><div class="label">North Star Metric</div><h3 style="font-size:17px;font-weight:600;margin-bottom:8px;">30-Day Direct Deposit Conversion</h3><p>When a referred member sets up direct deposit within 30 days, Chime becomes their primary bank. Everything downstream compounds from this moment.</p></div>
+    <div class="card card-pink"><div class="label">The Gap</div><h3 style="font-size:17px;font-weight:600;margin-bottom:8px;">Generic Offers Weren't Moving Behavior</h3><p>Hundreds of thousands of referred members enrolled but didn't reach the DD milestone. A flat $100 offer to everyone was leaving growth on the table.</p></div>
+  </div>
+  <div class="grid-3">
+    <div class="card"><div class="label">Business Goal</div><p style="font-size:13px;">Increase 30D DD CVR across referred member base while maintaining positive CAC</p></div>
+    <div class="card"><div class="label">Key Constraint</div><p style="font-size:13px;">Standard LTOs cost $25-$400 per acquisition. Needed conversion lift without proportionally increasing spend</p></div>
+    <div class="card"><div class="label">My Role</div><p style="font-size:13px;">Own full lifecycle strategy for referrals — hypothesis to experiment design to GA rollout — across 8M+ members</p></div>
+  </div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide" id="slide-3">
+  <h2>VEGA: Variable Evergreen GA Program</h2>
+  <p class="subtitle">From failed ML model to personalized offer engine scaling to 23.5M members</p>
+  <div class="grid-2">
+    <div>
+      <div class="tl"><div class="tl-dot">1</div><div><h4>The Hypothesis</h4><p>Members convert better when the offer reflects their predicted likelihood, not a flat $100 for everyone.</p></div></div>
+      <div class="tl"><div class="tl-dot">2</div><div><h4>First Attempt: DSML Optimization</h4><p>ML-powered targeting yielded neutral lift after adjusting for sample imbalance. Diagnosed the failure and pivoted fast.</p></div></div>
+      <div class="tl"><div class="tl-dot">3</div><div><h4>The Pivot: Randomized Offer Testing</h4><p>Shifted to randomized offer amounts ($100, $125, $150, $200) across 7M+ members. Proper holdout via ExPlat. 50/50 split. 11-week runtime.</p></div></div>
+      <div class="tl"><div class="tl-dot">4</div><div><h4>Result: $125 Variant Won. Scaled to GA.</h4><p>+18% lift in 30D DDers. All variants positive ROI. Rolled to 23.5M active members. ~20K newly enrolled members targeted per day ongoing.</p></div></div>
+      <div class="hl" style="margin-top:8px;">"The first pass failed. We diagnosed it, pivoted, and built something better. That data is now training the next ML model."</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="grid-2" style="gap:8px;">
+        <div class="rbadge"><div class="n">7M+</div><div class="l">Experiment Phase</div></div>
+        <div class="rbadge"><div class="n">23.5M</div><div class="l">GA Rollout</div></div>
+        <div class="rbadge"><div class="n">+18%</div><div class="l">30D DD CVR Lift</div></div>
+        <div class="rbadge"><div class="n">20K/day</div><div class="l">Ongoing New Members</div></div>
+      </div>
+      <div class="card"><div class="label">Primary KPI</div><p style="font-size:13px;">30D C2 DD CVR — did the referred member set up direct deposit within 30 days</p></div>
+      <div class="card"><div class="label">Secondary KPIs</div><div><span class="tag tag-purple">Enrollment Rate</span><span class="tag tag-purple">Incremental DDers</span><span class="tag tag-purple">CAC</span></div></div>
+      <div class="card"><div class="label">Tertiary KPIs</div><div><span class="tag tag-green">LTV:CAC</span><span class="tag tag-green">Offer Redemption Rate</span><span class="tag tag-green">Unsubscribe Rate</span></div></div>
+      <div class="card"><div class="label">Channels</div><span class="ch">Email</span><span class="ch">Push</span><span class="ch">In-App</span><span class="ch">SMS</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: VEGA CREATIVE -->
+<div class="slide" id="slide-4">
+  <h2>VEGA — How the Dynamic Offer Works</h2>
+  <p class="subtitle">Same creative, variable offer amount — personalized per member based on VEGA assignment</p>
+  <div style="display:grid;grid-template-columns:375px 1fr;gap:24px;align-items:start;margin-top:4px;">
+    <div>
+      <div class="label" style="margin-bottom:8px;">Real Chime Email — Urgency Offer</div>
+      <div class="email-scroll">
+        <section style="width:375px;background:#eef8f1;font-family:Arial,Helvetica,sans-serif;color:#111;margin:0;overflow:hidden;">
+          <div style="padding:30px 28px 18px;">
+            <div style="font-size:30px;font-weight:900;color:#1DB954;letter-spacing:-1.5px;margin-bottom:34px;">chime</div>
+            <h1 style="font-size:36px;line-height:1.02;font-weight:900;letter-spacing:-1.2px;margin:0 0 20px;color:#111;">Like a finder's fee,<br>for friends.</h1>
+            <p style="font-size:17px;line-height:1.45;font-weight:500;color:#27342d;margin:0 0 24px;">Special offer: for the next 24 hours, you can earn <strong>[$125]</strong> for each friend you refer to Chime who receives a qualifying direct deposit of $200+.</p>
+            <a href="#" style="display:block;background:#1DB954;color:#06120a;text-decoration:none;text-align:center;font-size:16px;font-weight:900;padding:14px 20px;border-radius:6px;margin:0 0 30px;">Invite friends</a>
+            <div style="height:230px;background:linear-gradient(135deg,#0c2418 0%,#193927 45%,#23362c 100%);border-radius:12px;position:relative;overflow:hidden;margin-bottom:42px;">
+              <div style="position:absolute;top:14px;right:14px;width:62px;height:62px;background:#ffe330;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;color:#111;font-size:10px;font-weight:900;line-height:1.2;transform:rotate(-10deg);">Limited<br>time!</div>
+              <div style="position:absolute;left:22px;bottom:0;width:68px;height:130px;background:#191919;border-radius:34px 34px 0 0;"></div>
+              <div style="position:absolute;left:38px;top:58px;width:34px;height:34px;background:#3d2c20;border-radius:50%;"></div>
+              <div style="position:absolute;left:112px;bottom:0;width:92px;height:145px;background:#f5f1e6;border-radius:46px 46px 0 0;"></div>
+              <div style="position:absolute;left:136px;top:48px;width:42px;height:42px;background:#7a4c2e;border-radius:50%;"></div>
+              <div style="position:absolute;left:220px;bottom:0;width:72px;height:118px;background:#2a2a2a;border-radius:36px 36px 0 0;"></div>
+              <div style="position:absolute;left:236px;top:62px;width:32px;height:32px;background:#c8a882;border-radius:50%;"></div>
+              <div style="position:absolute;left:118px;top:108px;width:62px;height:42px;background:#0d1117;border-radius:9px;transform:rotate(4deg);box-shadow:0 6px 14px rgba(0,0,0,.3);">
+                <div style="width:36px;height:5px;background:#1DB954;border-radius:5px;margin:10px auto 4px;"></div>
+                <div style="width:46px;height:4px;background:#39443e;border-radius:5px;margin:0 auto;"></div>
+              </div>
+              <div style="position:absolute;top:18px;left:170px;font-size:18px;color:#ffc400;">✦</div>
+              <div style="position:absolute;top:42px;left:82px;font-size:14px;color:#ffc400;">✦</div>
+            </div>
+            <h2 style="font-size:22px;font-weight:900;margin:0 0 14px;color:#111;">Here's how it works.</h2>
+            <ol style="margin:0 0 20px 20px;padding:0;color:#111;font-size:15px;line-height:1.55;font-weight:500;">
+              <li style="margin-bottom:8px;">Invite your friends to Chime.</li>
+              <li style="margin-bottom:8px;">Make sure they sign up in the next 24 hours.</li>
+              <li style="margin-bottom:8px;">Once your friend sets up a $200+ qualifying direct deposit and activates their Chime card, you both get paid.</li>
+            </ol>
+          </div>
+          <div style="padding:20px 28px;background:#eef8f1;color:#111;font-size:13px;">
+            <div style="color:#1DB954;font-size:13px;font-weight:700;margin-bottom:4px;">💚 from Chime</div>
+            <div>Questions? We're here to help.</div>
+          </div>
+          <div style="background:#07130d;color:white;padding:24px 28px 36px;">
+            <div style="font-size:24px;font-weight:900;color:white;margin-bottom:10px;">chime</div>
+            <div style="font-size:12px;color:#a6b5ac;">© 2026 Chime Financial, Inc. All rights reserved.</div>
+          </div>
+        </section>
+      </div>
+      <div style="margin-top:8px;font-size:10px;color:#1DB954;font-weight:700;">[$125] dynamically populates per member's VEGA variant assignment</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="label">Variant Breakdown</div>
+      <div class="card card-purple" style="padding:14px;"><div class="label">Variant A</div><div style="font-size:26px;font-weight:800;color:#a78bfa;margin-bottom:4px;">$100</div><p style="font-size:12px;">Standard baseline — control group</p></div>
+      <div class="card card-green" style="padding:14px;border:2px solid #34d399;"><div class="label">Variant B — Winner</div><div style="font-size:26px;font-weight:800;color:#34d399;margin-bottom:4px;">$125</div><p style="font-size:12px;">+18% lift in 30D DDers vs control. Rolled to GA.</p></div>
+      <div class="card card-pink" style="padding:14px;"><div class="label">Variant C</div><div style="font-size:26px;font-weight:800;color:#f472b6;margin-bottom:4px;">$150</div><p style="font-size:12px;">Positive ROI — informing next DSML model</p></div>
+      <div style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);border-radius:10px;padding:12px;">
+        <div class="label">Urgency Push — 4hrs After</div>
+        <div class="phone-sm" style="max-width:100%;margin:0;">
+          <div class="phone-screen" style="height:120px;">
+            <div class="phone-time" style="font-size:16px;margin-top:6px;">9:41</div>
+            <div class="phone-date" style="font-size:8px;">Monday, June 3</div>
+            <div class="phone-notif" style="bottom:6px;">
+              <div class="phone-icon">C</div>
+              <div><div class="phone-notif-title">Bigger bonuses ending soon</div><div class="phone-notif-body">Only hours left to earn [$125] for each friend who joins Chime.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: MYSTERY BONUS STATS -->
+<div class="slide" id="slide-5">
+  <h2>C2 Mystery Bonus — Chime's First Gamification Campaign</h2>
+  <p class="subtitle">Built from scratch to drive direct deposit conversion through randomized reward gamification</p>
+  <div class="grid-2" style="margin-bottom:16px;">
+    <div>
+      <div class="card card-pink" style="padding:16px;margin-bottom:12px;">
+        <div class="label">Campaign Overview</div>
+        <p style="font-size:13px;margin-bottom:10px;">84,242 members in experiment. Randomized $10-$10K mystery bonus on top of standard $100 referral reward. Three timing variants tested: Day 0, Day 8, Day 18. Day 8 performed best — rolled to 85/15 split.</p>
+        <div class="grid-2" style="gap:8px;">
+          <div class="rbadge"><div class="n" style="font-size:20px;">20.12%</div><div class="l">D30 CVR — D8 Variant</div></div>
+          <div class="rbadge"><div class="n" style="font-size:20px;">19,494</div><div class="l">D45 Converters</div></div>
+          <div class="rbadge"><div class="n" style="font-size:20px;">37.53%</div><div class="l">Email Open Rate</div></div>
+          <div class="rbadge"><div class="n" style="font-size:20px;">$25</div><div class="l">Avg CAC vs $25-$400</div></div>
+        </div>
+      </div>
+      <div class="hl">D8 variant matched control CVR at 5x audience volume. Wednesday payday spikes confirmed — future opportunity to align cadence with member paydays.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="card"><div class="label">Primary KPI</div><p style="font-size:13px;">D30 C2 DD CVR — did the referred member set up qualifying direct deposit within 30 days</p></div>
+      <div class="card"><div class="label">Secondary KPIs</div><div><span class="tag tag-purple">D45 CVR</span><span class="tag tag-purple">Bonus Redemption Rate</span><span class="tag tag-purple">CAC</span></div></div>
+      <div class="card"><div class="label">Guardrails</div><div><span class="tag tag-green">Unsubscribe Rate</span><span class="tag tag-green">Spam Complaint Rate</span></div></div>
+      <div class="card"><div class="label">Channels</div><span class="ch">Email</span><span class="ch">Push</span><span class="ch">In-App</span></div>
+      <div class="card"><div class="label">Experiment Design</div><p style="font-size:12px;">50/50 control vs treatment · ExPlat holdout · 3 timing variants (D0, D8, D18) · 85/15 rollout after D8 won</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: MYSTERY BONUS CREATIVE -->
+<div class="slide" id="slide-6">
+  <h2>C2 Mystery Bonus — Campaign Journey</h2>
+  <p class="subtitle">Full canvas flow: Day 0 email through final reminder push</p>
+  <div style="display:grid;grid-template-columns:375px 1fr;gap:24px;align-items:start;margin-top:4px;">
+    <div>
+      <div class="label" style="margin-bottom:8px;">Day 0 — Real Chime Email</div>
+      <div class="email-scroll">
+        <section style="width:375px;background:#eef8f1;font-family:Arial,Helvetica,sans-serif;color:#111;margin:0;overflow:hidden;">
+          <div style="padding:28px 28px 32px;">
+            <div style="font-size:28px;font-weight:900;color:#1DB954;letter-spacing:-1.5px;margin-bottom:34px;">chime</div>
+            <h1 style="font-size:32px;line-height:1.08;font-weight:900;letter-spacing:-1px;margin:0 0 34px;color:#111;">Earn $100 and up<br>to $10,000.</h1>
+            <div style="height:165px;position:relative;margin:0 0 30px;">
+              <!-- Donkey body -->
+              <div style="position:absolute;left:130px;top:30px;width:90px;height:60px;background:#1DB954;border-radius:20px;"></div>
+              <!-- Donkey head -->
+              <div style="position:absolute;left:196px;top:18px;width:44px;height:38px;background:#1DB954;border-radius:12px;"></div>
+              <!-- Snout -->
+              <div style="position:absolute;left:226px;top:30px;width:22px;height:16px;background:#78dca3;border-radius:6px;"></div>
+              <!-- Ear left -->
+              <div style="position:absolute;left:202px;top:8px;width:10px;height:16px;background:#1DB954;border-radius:5px 5px 0 0;transform:rotate(-10deg);"></div>
+              <!-- Ear right -->
+              <div style="position:absolute;left:216px;top:6px;width:10px;height:16px;background:#1DB954;border-radius:5px 5px 0 0;transform:rotate(10deg);"></div>
+              <!-- Eye -->
+              <div style="position:absolute;left:228px;top:22px;width:5px;height:5px;background:#07130d;border-radius:50%;"></div>
+              <!-- Legs -->
+              <div style="position:absolute;left:140px;top:84px;width:14px;height:26px;background:#1DB954;border-radius:0 0 5px 5px;"></div>
+              <div style="position:absolute;left:158px;top:84px;width:14px;height:26px;background:#1DB954;border-radius:0 0 5px 5px;"></div>
+              <div style="position:absolute;left:178px;top:84px;width:14px;height:26px;background:#1DB954;border-radius:0 0 5px 5px;"></div>
+              <div style="position:absolute;left:196px;top:84px;width:14px;height:26px;background:#1DB954;border-radius:0 0 5px 5px;"></div>
+              <!-- Tail -->
+              <div style="position:absolute;left:120px;top:34px;width:14px;height:8px;background:#1DB954;border-radius:4px;transform:rotate(20deg);"></div>
+              <div style="position:absolute;left:112px;top:40px;width:10px;height:14px;background:#78dca3;border-radius:3px;transform:rotate(10deg);"></div>
+              <!-- Mane -->
+              <div style="position:absolute;left:196px;top:18px;width:8px;height:18px;background:#0d8f3e;border-radius:4px;"></div>
+              <!-- Floating coins -->
+              <div style="position:absolute;left:58px;top:44px;font-size:26px;">🪙</div>
+              <div style="position:absolute;left:82px;top:76px;font-size:20px;">🪙</div>
+              <div style="position:absolute;right:42px;top:50px;font-size:24px;">🪙</div>
+              <!-- Sparkles -->
+              <div style="position:absolute;left:108px;top:12px;font-size:16px;color:#ffc400;">✦</div>
+              <div style="position:absolute;right:58px;top:18px;font-size:18px;color:#ffc400;">✦</div>
+            </div>
+            <p style="font-size:16px;line-height:1.55;font-weight:500;color:#26352c;margin:0 0 26px;">Get yourself some money — and maybe an extra bonus too. Set up direct deposit with Chime to earn $100 and unlock a Mystery Bonus.</p>
+            <a href="#" style="display:block;background:#1DB954;color:#06120a;text-decoration:none;text-align:center;font-size:16px;font-weight:900;padding:15px 18px;border-radius:5px;">Set up direct deposit</a>
+          </div>
+          <div style="padding:20px 28px;background:#eef8f1;color:#111;font-size:13px;">
+            <div style="color:#1DB954;font-size:13px;font-weight:700;margin-bottom:4px;">💚 from Chime</div>
+            <div>Questions? We're here to help.</div>
+          </div>
+          <div style="background:#07130d;color:white;padding:24px 28px 36px;">
+            <div style="font-size:24px;font-weight:900;color:white;margin-bottom:10px;">chime</div>
+            <div style="font-size:12px;color:#a6b5ac;">© 2026 Chime Financial, Inc. All rights reserved.</div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="label">Push Journey — Day 8 through Final</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+        <div>
+          <div style="font-size:10px;color:#6b46ff;font-weight:700;text-align:center;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Day 8 — Winner</div>
+          <div class="phone-sm"><div class="phone-screen"><div class="phone-time">9:41</div><div class="phone-date">Day 8</div><div class="phone-notif"><div class="phone-icon">C</div><div><div class="phone-notif-title">Up to $10,000 extra could still be yours</div><div class="phone-notif-body">Set up direct deposit and reveal your bonus today.</div></div></div></div></div>
+          <div style="background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);border-radius:6px;padding:5px;text-align:center;"><span style="font-size:9px;color:#34d399;font-weight:700;">Best performer</span></div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:#6b46ff;font-weight:700;text-align:center;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Day 18</div>
+          <div class="phone-sm"><div class="phone-screen"><div class="phone-time">9:41</div><div class="phone-date">Day 18</div><div class="phone-notif"><div class="phone-icon">C</div><div><div class="phone-notif-title">Don't forget — up to $10,000 extra</div><div class="phone-notif-body">Stack your bonuses with direct deposit.</div></div></div></div></div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:#6b46ff;font-weight:700;text-align:center;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Day 38 — Final</div>
+          <div class="phone-sm"><div class="phone-screen"><div class="phone-time">9:41</div><div class="phone-date">Day 38</div><div class="phone-notif"><div class="phone-icon">C</div><div><div class="phone-notif-title">Last chance — extra bonus up to $10,000</div><div class="phone-notif-body">Get your $100 reward before time runs out.</div></div></div></div></div>
+        </div>
+      </div>
+      <div style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.3);border-radius:12px;padding:14px;text-align:center;">
+        <div style="font-size:16px;font-weight:800;color:#34d399;margin-bottom:4px;">Converted — Mystery Bonus Revealed</div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.5);">Member DDs $200+, activates card, bonus paid out. Exits canvas.</p>
+      </div>
+      <div class="hl" style="font-size:12px;">Day 8 matched control CVR at 5x audience volume. $25 avg CAC vs $25-$400 industry range.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: APPLE PAY STATS -->
+<div class="slide" id="slide-7">
+  <h2>Apple Pay GTM — 5-Channel Feature Launch</h2>
+  <p class="subtitle">Driving adoption of Apple Pay as a fast, frictionless way to fund a Chime account</p>
+  <div class="grid-2" style="margin-bottom:16px;">
+    <div>
+      <div class="card card-purple" style="padding:16px;margin-bottom:12px;">
+        <div class="label">Campaign Overview</div>
+        <p style="font-size:13px;margin-bottom:10px;">Three-send strategy across 5 channels to 9.8M members (iOS 16.2+). 90/10 experiment split. Goal: reduce friction to fund on Day 0 and drive habit formation around Apple Pay deposits.</p>
+        <div class="grid-2" style="gap:8px;">
+          <div class="rbadge"><div class="n" style="font-size:22px;">20.3K</div><div class="l">Incremental Funders</div></div>
+          <div class="rbadge"><div class="n" style="font-size:22px;">14.5K</div><div class="l">Incremental TAs</div></div>
+          <div class="rbadge"><div class="n" style="font-size:22px;">15.2K</div><div class="l">Additional Purchasers</div></div>
+          <div class="rbadge"><div class="n" style="font-size:22px;">4.3K</div><div class="l">Lapsed Reactivated</div></div>
+        </div>
+      </div>
+      <div class="hl">Stat-sig lifts in deposit volume and funding rates observed after Send 1. Average Apple Pay transactions grew to 3+ per month post-launch.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="card"><div class="label">Primary KPIs</div><div><span class="tag tag-purple">Deposit Volume</span><span class="tag tag-purple">Funding Rate</span><span class="tag tag-purple">Transaction Active Rate</span></div></div>
+      <div class="card"><div class="label">Secondary KPIs</div><div><span class="tag tag-green">Purchase Rate</span><span class="tag tag-green">Apple Pay Txn Frequency</span></div></div>
+      <div class="card"><div class="label">Experiment Design</div><p style="font-size:12px;">90/10 treatment vs control · 3-send blast: awareness, non-openers, habit formation · Data maturation 45 days</p></div>
+      <div class="card"><div class="label">Channels</div><span class="ch">Email</span><span class="ch">Push</span><span class="ch">Inbox</span><span class="ch">In-App Banner</span><span class="ch">Bottomsheet</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: APPLE PAY CREATIVE -->
+<div class="slide" id="slide-8">
+  <h2>Apple Pay GTM — Campaign Journey</h2>
+  <p class="subtitle">Three-send strategy: awareness to non-opener nudge to habit formation</p>
+  <div style="display:grid;grid-template-columns:375px 1fr;gap:24px;align-items:start;margin-top:4px;">
+    <div>
+      <div class="label" style="margin-bottom:8px;">Send 1 — Nov 6 — Real Chime Email</div>
+      <div class="email-scroll">
+        <section style="width:375px;background:#edf8f0;font-family:Arial,Helvetica,sans-serif;color:#111;margin:0;overflow:hidden;">
+          <div style="padding:30px 28px 18px;background:#edf8f0;">
+            <div style="font-size:30px;font-weight:900;color:#1DB954;letter-spacing:-1.5px;margin-bottom:34px;">chime</div>
+            <h1 style="font-size:33px;line-height:1.04;font-weight:900;letter-spacing:-.8px;margin:0 0 18px;color:#111;">Easy deposits,<br>meet Apple Pay!</h1>
+            <p style="font-size:15px;line-height:1.5;font-weight:500;color:#26352c;margin:0 0 22px;">Introducing the fastest and super easy way to move money into Chime. It's the Apple Pay you know and love — now working with your Chime account.</p>
+            <a href="#" style="display:block;background:#1DB954;color:#06120a;text-decoration:none;text-align:center;font-size:15px;font-weight:900;padding:13px 18px;border-radius:5px;margin:0 0 28px;">Add money with Apple Pay</a>
+            <div style="height:240px;display:flex;justify-content:center;align-items:flex-start;margin-bottom:24px;">
+              <div style="width:160px;height:234px;background:#0a0f0d;border-radius:26px;padding:9px;box-shadow:0 14px 24px rgba(0,0,0,.22);">
+                <div style="height:216px;background:#10291b;border-radius:20px;position:relative;overflow:hidden;color:white;">
+                  <div style="position:absolute;top:12px;left:0;right:0;text-align:center;color:#1DB954;font-size:12px;font-weight:900;">chime</div>
+                  <div style="position:absolute;top:36px;left:14px;color:#d7e6dc;font-size:10px;">Available</div>
+                  <div style="position:absolute;top:50px;left:14px;color:white;font-size:20px;font-weight:800;">$1,246.91</div>
+                  <div style="position:absolute;top:80px;left:14px;right:14px;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                    <div style="background:white;color:#111;border-radius:8px;padding:10px 6px;font-size:10px;font-weight:800;">Move<br>money</div>
+                    <div style="background:white;color:#111;border-radius:8px;padding:10px 6px;font-size:10px;font-weight:800;">Deposit<br>cash</div>
+                  </div>
+                  <div style="position:absolute;top:138px;left:14px;right:14px;background:#e7fff0;border-radius:8px;padding:10px;color:#111;font-size:9px;line-height:1.35;"><strong>Introducing Apple Pay</strong><br>Add money fast and securely.<span style="display:inline-block;background:#111;color:white;border-radius:4px;padding:2px 4px;margin-left:2px;font-size:8px;">Pay</span></div>
+                  <div style="position:absolute;left:0;right:0;bottom:0;height:34px;background:#f7f7f7;color:#444;display:flex;align-items:center;justify-content:space-around;font-size:8px;"><span>Home</span><span>Move</span><span>Deals</span><span>Settings</span></div>
+                </div>
+              </div>
+            </div>
+            <div style="color:#1DB954;font-size:13px;font-weight:700;margin-bottom:4px;">💚 from Chime</div>
+          </div>
+          <div style="background:#07130d;color:white;padding:24px 28px 36px;">
+            <div style="font-size:24px;font-weight:900;color:white;margin-bottom:10px;">chime</div>
+            <div style="font-size:12px;color:#a6b5ac;">© 2026 Chime Financial, Inc. Apple Pay is a registered trademark of Apple Inc.</div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="label">Send 2 + Send 3 — Push</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div>
+          <div style="font-size:10px;color:#6b46ff;font-weight:700;text-align:center;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Send 2 — Nov 19</div>
+          <div class="phone-sm"><div class="phone-screen"><div class="phone-time">9:41</div><div class="phone-date">Nov 19</div><div class="phone-notif"><div class="phone-icon">C</div><div><div class="phone-notif-title">Did deposits just get easier?</div><div class="phone-notif-body">Yes! With Apple Pay, deposits into Chime are free, instant, and secure.</div></div></div></div></div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.4);text-align:center;margin-top:4px;">Non-opener re-engagement</div>
+        </div>
+        <div>
+          <div style="font-size:10px;color:#6b46ff;font-weight:700;text-align:center;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Send 3 — Nov 26</div>
+          <div class="phone-sm"><div class="phone-screen"><div class="phone-time">9:41</div><div class="phone-date">Nov 26</div><div class="phone-notif"><div class="phone-icon">C</div><div><div class="phone-notif-title">Pro tip: Transfer with Apple Pay</div><div class="phone-notif-body">Add money into Chime in a few easy, secure steps.</div></div></div></div></div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.4);text-align:center;margin-top:4px;">Habit formation</div>
+        </div>
+      </div>
+      <div style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.3);border-radius:12px;padding:14px;">
+        <div style="font-size:12px;color:#34d399;font-weight:700;margin-bottom:8px;">Post-Launch Results</div>
+        <div style="display:grid;gap:5px;">
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);">+20.3K incremental funders</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);">+14.5K transaction actives</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);">+15.2K additional purchasers</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);">4.3K lapsed members reactivated</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);">3+ avg Apple Pay transactions/month</div>
+        </div>
+      </div>
+      <div class="hl" style="font-size:12px;">Stat-sig lifts confirmed after Send 1. Habit formation messaging drove sustained monthly usage.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: C2 NUDGE -->
+<div class="slide" id="slide-9">
+  <h2>C2 Nudge DD Bonus — Campaign Journey</h2>
+  <p class="subtitle">Re-engaging referred members who deposited under $200 to unlock their referral bonus</p>
+  <div class="grid-2">
+    <div>
+      <div class="card card-green" style="padding:14px;margin-bottom:12px;">
+        <div class="label">Campaign Overview</div>
+        <p style="font-size:13px;margin-bottom:8px;">Targeted C2s with sub-$200 first deposit. Omnichannel nudge via email, push, content card, SMS. 50/50 experiment. Primary metric: 30D C2 DD CVR.</p>
+        <div class="grid-2" style="gap:8px;">
+          <div class="rbadge"><div class="n" style="font-size:18px;">6.5K</div><div class="l">Monthly Eligible C2s</div></div>
+          <div class="rbadge"><div class="n" style="font-size:18px;">22%</div><div class="l">D30 DD CVR</div></div>
+        </div>
+      </div>
+      <div style="margin-bottom:12px;">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#6b46ff;font-weight:700;margin-bottom:8px;">Campaign Flow</div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <div style="flex:1;"><div style="font-size:9px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:4px;">Inbox Preview</div><div style="background:#f8fafd;border-radius:8px;padding:8px;color:#202124;font-size:9px;"><div style="font-weight:800;margin-bottom:2px;">Direct deposit $200+...</div><div style="color:#5f6368;">Congrats on depositing $XX!</div></div></div>
+          <div style="color:rgba(255,255,255,0.3);font-size:14px;">→</div>
+          <div style="flex:1;"><div style="font-size:9px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:4px;">Opened Email</div><div style="background:#1a3a2a;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);"><div style="background:#1DB954;padding:4px 8px;"><span style="font-size:8px;font-weight:800;color:#fff;">chime</span></div><div style="background:linear-gradient(135deg,#063d24,#1DB954);padding:10px;text-align:center;"><div style="font-size:10px;font-weight:900;color:#fff;margin-bottom:4px;">Direct deposit $200+ and get a $100 bonus</div><div style="background:#1DB954;color:#04110a;padding:4px 8px;border-radius:4px;font-size:8px;font-weight:900;display:inline-block;">Move money</div></div></div></div>
+          <div style="color:rgba(255,255,255,0.3);font-size:14px;">→</div>
+          <div style="flex:1;"><div style="font-size:9px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:4px;">SMS</div><div class="phone-sm" style="max-width:80px;"><div class="phone-screen" style="height:100px;"><div class="phone-notif" style="bottom:6px;"><div class="phone-icon">C</div><div><div class="phone-notif-title" style="font-size:7px;">Unlock your $100 bonus</div><div class="phone-notif-body" style="font-size:7px;">Direct deposit $200+ today.</div></div></div></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="card"><div class="label">Hypothesis</div><p style="font-size:13px;">Adding referral-specific bonus messaging to sub-$200 depositors will improve D30 DD CVR and drive greater C2 bonus redemption</p></div>
+      <div class="card"><div class="label">Primary KPI</div><p style="font-size:13px;">30D C2 DD CVR — did the member reach $200+ qualifying direct deposit</p></div>
+      <div class="card"><div class="label">Secondary KPIs</div><div><span class="tag tag-purple">Bonus Redemption Rate</span><span class="tag tag-purple">CAC</span><span class="tag tag-green">Unsubscribe Rate</span></div></div>
+      <div class="card"><div class="label">Channels</div><span class="ch">Email</span><span class="ch">Push</span><span class="ch">Content Card</span><span class="ch">SMS</span></div>
+      <div class="hl" style="font-size:12px;">10% relative lift in C2 30D DD CVR leads to ~6-7K incremental D30 DDers annually.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10 -->
+<div class="slide" id="slide-10">
+  <h2>What I Learned and How I'd Apply It</h2>
+  <p class="subtitle">From Chime's referral and funding lifecycle to Wealthfront's home lending expansion</p>
+  <div class="grid-2" style="margin-bottom:16px;">
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="label">Key Learnings</div>
+      <div class="card card-purple" style="padding:14px;"><p style="font-size:13px;"><strong style="color:#a78bfa;">Personalization beats volume.</strong> VEGA proved the right offer to the right person outperforms blasting everyone, even when the ML model fails on the first pass.</p></div>
+      <div class="card card-green" style="padding:14px;"><p style="font-size:13px;"><strong style="color:#34d399;">Measure what you cause.</strong> Holdout groups are non-negotiable. Incremental lift is the only number that matters for budget decisions.</p></div>
+      <div class="card card-pink" style="padding:14px;"><p style="font-size:13px;"><strong style="color:#f472b6;">Multichannel means meeting people where they are.</strong> Apple Pay's success came from 5 channels each doing a different job in the journey.</p></div>
+    </div>
+    <div>
+      <div class="label">How I'd Think About Wealthfront Home Lending</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="canvas-box canvas-1"><div class="canvas-num" style="color:#a78bfa;">01</div><h4 style="font-size:13px;margin-bottom:4px;">Existing Members — Cross-Sell Into Lending</h4><p style="font-size:12px;">Already using Cash Account or Investing. Trigger on homeownership goal in Path or home lending page browse. States currently GA: TX, CO, CA.</p></div>
+        <div class="canvas-box canvas-2"><div class="canvas-num" style="color:#34d399;">02</div><h4 style="font-size:13px;margin-bottom:4px;">Members Not Yet on Other Products</h4><p style="font-size:12px;">Use lending as the entry point into the Wealthfront ecosystem. Educate on how Cash + Investing + Lending work together.</p></div>
+        <div class="canvas-box canvas-3"><div class="canvas-num" style="color:#f472b6;">03</div><h4 style="font-size:13px;margin-bottom:4px;">Expansion State Acquisition</h4><p style="font-size:12px;">As new states launch, target members in those geos. Some may already have Wealthfront accounts — cross-sell opportunity is immediate.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="hl">The through line from Chime to Wealthfront: I've spent my career helping people take the next financial step with confidence. At Chime that was direct deposit. At Wealthfront it's investing, saving, and owning a home.</div>
+</div>
+
+<!-- SLIDE 11 -->
+<div class="slide" id="slide-11">
+  <h2>How I Measure What Matters</h2>
+  <p class="subtitle">I measure what I cause, not just what happens. Holdout groups are non-negotiable.</p>
+  <div class="grid-3" style="margin-bottom:16px;">
+    <div class="card card-purple"><div class="label">Primary KPIs</div><p style="font-size:13px;margin-bottom:10px;">30-Day Direct Deposit CVR is the north star. Everything else is a leading indicator.</p><span class="tag tag-purple">D30 DD CVR</span><span class="tag tag-purple">Enrollment Rate</span><span class="tag tag-purple">CAC</span><span class="tag tag-purple">Incremental DDers</span></div>
+    <div class="card card-green"><div class="label">Guardrail Metrics</div><p style="font-size:13px;margin-bottom:10px;">These tell me if I'm moving the right metric or just creating noise.</p><span class="tag tag-green">Unsubscribe Rate</span><span class="tag tag-green">Inbox Placement</span><span class="tag tag-green">Spam Complaint Rate</span></div>
+    <div class="card card-pink"><div class="label">Attribution — 3 Numbers</div><p style="font-size:13px;margin-bottom:8px;">Platform numbers overstate impact. What matters:</p><p style="font-size:13px;"><strong style="color:#f472b6;">X</strong> — Platform reported<br><strong style="color:#f472b6;">Y</strong> — Internally validated (24hr click window)<br><strong style="color:#34d399;">Z</strong> — Holdout-validated incremental</p><p style="font-size:12px;margin-top:6px;color:rgba(255,255,255,0.45);">Z is the number for budget decisions.</p></div>
+  </div>
+  <div class="card-indigo" style="padding:20px;">
+    <div class="label" style="margin-bottom:14px;">Experiment Design Principles</div>
+    <div class="grid-4">
+      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">10%</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Global holdout before first send</div></div>
+      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">95%</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Confidence threshold (p &lt; 0.05)</div></div>
+      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">30d</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Minimum runtime for considered purchases</div></div>
+      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">1</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Conversion counted per member per journey</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 12 -->
+<div class="slide" id="slide-12">
+  <div style="text-align:center;max-width:680px;margin:0 auto;">
+    <h2 style="font-size:44px;margin-bottom:14px;">Thank You</h2>
+    <p style="font-size:17px;color:rgba(255,255,255,0.5);margin-bottom:40px;">I'd love to hear your reactions and answer any questions about the work or how I'd approach Wealthfront's lifecycle programs.</p>
+    <div class="grid-3" style="text-align:left;">
+      <div class="card" style="padding:16px;"><div class="label">My Question</div><p style="font-size:13px;">What does the lifecycle function look like today and where are the biggest gaps you're trying to close?</p></div>
+      <div class="card" style="padding:16px;"><div class="label">My Question</div><p style="font-size:13px;">How are you thinking about the Cash Account journey and the investing journey — one funnel or two?</p></div>
+      <div class="card" style="padding:16px;"><div class="label">My Question</div><p style="font-size:13px;">What does success look like in the first 90 days for this person?</p></div>
+    </div>
+    <div style="margin-top:32px;"><p style="font-size:13px;color:rgba(255,255,255,0.3);">brittanydblackmon@gmail.com</p></div>
+  </div>
+</div>
+
+</div>
+<div class="nav">
+  <button onclick="prev()">Prev</button>
+  <div class="nav-dots" id="dots"></div>
+  <button onclick="next()">Next</button>
+</div>
+<script>
+  let cur=1;const total=12;
+  const tags=['Introduction','Business Context','VEGA — Program Overview','VEGA — Campaign Journey','Mystery Bonus — Overview','Mystery Bonus — Campaign Journey','Apple Pay GTM — Overview','Apple Pay GTM — Campaign Journey','C2 Nudge DD Bonus — Journey','Application to Wealthfront','Measurement','Questions'];
+  function buildDots(){const d=document.getElementById('dots');for(let i=1;i<=total;i++){const dot=document.createElement('div');dot.className='dot'+(i===1?' active':'');dot.onclick=()=>go(i);d.appendChild(dot);}}
+  function go(n){document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.dot').forEach(d=>d.classList.remove('active'));document.getElementById('slide-'+n).classList.add('active');document.querySelectorAll('.dot')[n-1].classList.add('active');document.getElementById('counter').textContent=n+' / '+total;document.getElementById('tag-display').textContent=tags[n-1];cur=n;}
+  function next(){if(cur<total)go(cur+1);}
+  function prev(){if(cur>1)go(cur-1);}
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')next();if(e.key==='ArrowLeft'||e.key==='ArrowUp')prev();});
+  buildDots();
+</script>
+</body>
+</html>
