@@ -95,7 +95,8 @@
   <div class="grid-3">
     <div class="card"><div class="label">Business Goal</div><p style="font-size:13px;">Increase 30D DD CVR across referred member base while maintaining positive CAC</p></div>
     <div class="card"><div class="label">Key Constraint</div><p style="font-size:13px;">Standard LTOs cost $25-$400 per acquisition. Needed conversion lift without proportionally increasing spend</p></div>
-    <div class="card"><div class="label">My Role</div><p style="font-size:13px;">Owned lifecycle strategy across both C1 (existing Chime members who refer) and C2 (newly referred members) journeys. Urgency Offer targeted C1 only, while Mystery Bonus + C2 Nudge activated C2s. Apple Pay was a separate full-base GTM for iOS 16.2+ members focused on IIT funding, not referrals.</p></div>
+    <div class="card"><div class="label">My Role</div><p style="font-size:13px;">Owned lifecycle strategy across both C1 (existing Chime members who refer) and C2 (newly referred members) journeys — from hypothesis to experiment design to GA rollout.</p></div>
+    <div class="card"><div class="label">Campaign Audience Breakdown</div><p style="font-size:12px;">Urgency Offer — C1 only (existing members incentivized to refer friends)<br>Mystery Bonus and C2 Nudge — C2 only (newly referred members being activated)<br>Apple Pay — full Chime member base (all iOS members, goal was account funding not referrals)</p></div>
   </div>
 </div>
 
@@ -109,6 +110,7 @@
       <div class="tl"><div class="tl-dot">2</div><div><h4>First Attempt: DSML Optimization</h4><p>ML-powered targeting yielded neutral lift after adjusting for sample imbalance. Diagnosed the failure and pivoted fast.</p></div></div>
       <div class="tl"><div class="tl-dot">3</div><div><h4>The Pivot: Randomized Offer Testing</h4><p>Shifted to randomized offer amounts ($100, $125, $150, $200) across 7M+ members. Proper holdout via ExPlat. 50/50 split. 11-week runtime.</p></div></div>
       <div class="tl"><div class="tl-dot">4</div><div><h4>Result: $125 Variant Won. Scaled to GA.</h4><p>+18% lift in 30D DDers. All variants positive ROI. Rolled to 23.5M active members. ~20K newly enrolled members targeted per day ongoing.</p></div></div>
+      <div class="tl"><div class="tl-dot">5</div><div><h4>What's Next: DSML-Optimized Variable Baseline</h4><p>Building on VEGA's randomized testing data, the team launched a new experiment on May 20, 2026. A T-learner uplift model now serves $100/$150/$200 offers to 15.4M C1 members based on predicted incremental conversions per dollar — concentrating spend on members who genuinely respond to higher offers and avoiding overpaying members who would refer at $100 anyway. This is the next ML model VEGA's data was training.</p></div></div>
       <div class="hl" style="margin-top:8px;">"The first pass failed. We diagnosed it, pivoted, and built something better. That data is now training the next ML model."</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;">
@@ -132,7 +134,7 @@
   <p class="subtitle">Same creative, variable offer amount — personalized per member based on VEGA assignment</p>
   <div style="display:grid;grid-template-columns:375px 1fr;gap:24px;align-items:start;margin-top:4px;">
     <div>
-      <div class="label" style="margin-bottom:8px;">Real Chime Email — Urgency Offer (C1 Existing Members Only)</div>
+      <div class="label" style="margin-bottom:8px;">Real Chime Email — Urgency Offer (C1 Only)</div>
       <div class="email-scroll">
         <section style="width:375px;background:#eef8f1;font-family:Arial,Helvetica,sans-serif;color:#111;margin:0;overflow:hidden;">
           <div style="padding:30px 28px 18px;">
@@ -172,7 +174,7 @@
           </div>
         </section>
       </div>
-      <div style="margin-top:8px;font-size:10px;color:#1DB954;font-weight:700;">[$125] dynamically populates per member's VEGA variant assignment</div>
+      <div style="margin-top:8px;font-size:10px;color:#1DB954;font-weight:700;">This campaign targets existing Chime members only. [$125] dynamically populates based on each member's VEGA variant assignment.</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:12px;">
       <div class="label">Variant Breakdown</div>
@@ -202,9 +204,13 @@
   <p class="subtitle">Expanded to C2 after C1 success to drive qualifying activation through randomized reward gamification</p>
   <div class="grid-2" style="margin-bottom:16px;">
     <div>
+      <div class="card card-purple" style="padding:16px;margin-bottom:12px;">
+        <div class="label">Why C2: Built on C1 Success</div>
+        <p style="font-size:13px;">The Mystery Bonus first ran for existing Chime members (C1s) and proved positive results. That success justified expanding the same gamification mechanic to newly referred members (C2s) to drive direct deposit conversion.</p>
+      </div>
       <div class="card card-pink" style="padding:16px;margin-bottom:12px;">
-        <div class="label">Campaign Overview</div>
-        <p style="font-size:13px;margin-bottom:10px;">Built on the success of the C1 Mystery Bonus, then scaled to 84,242 C2 members. Incentive unlocked only when both steps were completed: qualifying $200+ direct deposit and physical Chime card activation within 14 days. Randomized $10-$10K bonus sat on top of the standard $100 referral reward.</p>
+        <div class="label">Campaign Goal</div>
+        <p style="font-size:13px;margin-bottom:10px;">C2s must complete two steps to unlock their incentive: (1) receive a qualifying $200+ direct deposit AND (2) activate their physical Chime card within 14 days. Both steps required or no payout.</p>
         <div class="grid-2" style="gap:8px;">
           <div class="rbadge"><div class="n" style="font-size:20px;">20.12%</div><div class="l">D30 CVR — D8 Variant</div></div>
           <div class="rbadge"><div class="n" style="font-size:20px;">19,494</div><div class="l">D45 Converters</div></div>
@@ -212,14 +218,14 @@
           <div class="rbadge"><div class="n" style="font-size:20px;">$25</div><div class="l">Avg CAC vs $25-$400</div></div>
         </div>
       </div>
-      <div class="hl">Day 8 entry matched control CVR at 5x audience volume and directly informed updates to the broader C2 onboarding journey.</div>
+      <div class="hl">Day 8 performed best and directly informed an update to the broader C2 onboarding journey.</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       <div class="card"><div class="label">Primary KPI</div><p style="font-size:13px;">D30 C2 DD CVR with full qualification — member must complete $200+ qualifying direct deposit and physical card activation in 14 days</p></div>
       <div class="card"><div class="label">Secondary KPIs</div><div><span class="tag tag-purple">D45 CVR</span><span class="tag tag-purple">Bonus Redemption Rate</span><span class="tag tag-purple">CAC</span></div></div>
       <div class="card"><div class="label">Guardrails</div><div><span class="tag tag-green">Unsubscribe Rate</span><span class="tag tag-green">Spam Complaint Rate</span></div></div>
       <div class="card"><div class="label">Channels</div><span class="ch">Email</span><span class="ch">Push</span><span class="ch">In-App</span></div>
-      <div class="card"><div class="label">Experiment Design</div><p style="font-size:12px;">Timing experiment — tested which day post-enrollment to trigger the full canvas sequence. Same creative, same flow, different entry point (D0, D8, D18) · 85/15 rollout after D8 won</p></div>
+      <div class="card"><div class="label">Experiment Design</div><p style="font-size:12px;">Timing experiment — tested which day post-enrollment to trigger the full canvas sequence. All members receive the exact same emails and pushes. The only variable is the entry trigger: D0, D8, or D18 after account creation. Day 8 performed best — directly informed an update to the broader C2 onboarding journey.</p></div>
     </div>
   </div>
 </div>
@@ -227,7 +233,7 @@
 <!-- SLIDE 6: MYSTERY BONUS CREATIVE -->
 <div class="slide" id="slide-6">
   <h2>C2 Mystery Bonus — Canvas Journey</h2>
-  <p class="subtitle">Multi-day canvas sequence — entry day determines your group, not which creative you receive</p>
+  <p class="subtitle">One unified canvas sequence — entry day is the only variable.</p>
   <div style="display:grid;grid-template-columns:375px 1fr;gap:24px;align-items:start;margin-top:4px;">
     <div>
       <div class="label" style="margin-bottom:8px;">Unified Canvas Email Creative (used across all variants)</div>
@@ -282,51 +288,18 @@
       </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;">
-      <div class="hl" style="font-size:12px;">All members receive the same canvas sequence. Variant determines entry day only.</div>
-      <div class="label">Real Canvas Flow</div>
-      <div style="display:flex;flex-direction:column;gap:8px;max-height:460px;overflow-y:auto;overflow-x:hidden;padding-right:4px;">
-        <div class="card" style="padding:10px 12px;">
-          <div style="font-size:12px;font-weight:700;color:#a78bfa;">Day 0 Announcement — D0 group only</div>
-          <p style="font-size:11px;line-height:1.5;">SL: "A chance at an extra bonus up to $10,000"</p>
-          <p style="font-size:11px;line-height:1.5;">PH: "Direct deposit and earn that money."</p>
-          <p style="font-size:11px;line-height:1.5;">Channels: Email + Push + Inbox</p>
-        </div>
-        <div class="card" style="padding:10px 12px;">
-          <div style="font-size:12px;font-weight:700;color:#a78bfa;">Reminder 1 — D0, D8, D18 groups</div>
-          <p style="font-size:11px;line-height:1.5;">SL: "Up to an extra $10,000 could still be yours."</p>
-          <p style="font-size:11px;line-height:1.5;">Channels: Email + Push</p>
-        </div>
-        <div class="card" style="padding:10px 12px;">
-          <div style="font-size:12px;font-weight:700;color:#a78bfa;">Reminder 2 — D0, D8 groups only</div>
-          <p style="font-size:11px;line-height:1.5;">SL: "Don't forget — up to $10,000 extra could still be yours."</p>
-          <p style="font-size:11px;line-height:1.5;">Channels: Email + Push</p>
-        </div>
-        <div class="card" style="padding:10px 12px;">
-          <div style="font-size:12px;font-weight:700;color:#a78bfa;">Reminder 3 — D0, D8 groups only</div>
-          <p style="font-size:11px;line-height:1.5;">SL: "Earn $100 and a bonus up to $10,000."</p>
-          <p style="font-size:11px;line-height:1.5;">Channels: Email + Push</p>
-        </div>
-        <div class="card" style="padding:10px 12px;">
-          <div style="font-size:12px;font-weight:700;color:#a78bfa;">Reminder 4 — D0 group only</div>
-          <p style="font-size:11px;line-height:1.5;">SL: "Up to $10,000 extra could still be yours."</p>
-          <p style="font-size:11px;line-height:1.5;">Channels: Email + Push</p>
-        </div>
-        <div class="card" style="padding:10px 12px;">
-          <div style="font-size:12px;font-weight:700;color:#a78bfa;">Final Reminder Day 38 — ALL groups (D0, D8, D18)</div>
-          <p style="font-size:11px;line-height:1.5;">SL: "Last chance for an extra bonus up to $10,000."</p>
-          <p style="font-size:11px;line-height:1.5;">Channels: Email + Push</p>
-        </div>
-        <div class="card" style="padding:10px 12px;">
-          <div style="font-size:12px;font-weight:700;color:#34d399;">C2 DDs Successfully — all groups who direct deposited</div>
-          <p style="font-size:11px;line-height:1.5;">Push + Inbox: "You just got rewarded!"</p>
-        </div>
-        <div class="card" style="padding:10px 12px;">
-          <div style="font-size:12px;font-weight:700;color:#34d399;">C2 Mystery Bonus Award — all groups who earned both bonuses</div>
-          <p style="font-size:11px;line-height:1.5;">SL: "You didn't just earn one bonus — you earned two!"</p>
-          <p style="font-size:11px;line-height:1.5;">Email: "You just unlocked $100 and a Mystery Bonus!"</p>
-        </div>
+      <div class="hl" style="font-size:12px;">All members receive the same full canvas sequence. The variant only determines when they enter — Day 0, Day 8, or Day 18 after account creation.</div>
+      <div class="card" style="padding:12px 14px;">
+        <div class="label">Unified Entry Flow</div>
+        <p style="font-size:12px;line-height:1.55;">Day 0 entry group — receives all comms starting immediately</p>
+        <p style="font-size:12px;line-height:1.55;">Day 8 entry group — same comms starting 8 days after signup</p>
+        <p style="font-size:12px;line-height:1.55;">Day 18 entry group — same comms starting 18 days after signup</p>
       </div>
-      <div class="hl" style="font-size:12px;">D0 members receive the most comms. D18 members receive fewer. All groups receive the Final Reminder at Day 38 and success comms upon conversion. Day 8 group performed best — rolled to 85/15.</div>
+      <div class="card" style="padding:12px 14px;">
+        <div class="label">Canvas Comms Order</div>
+        <p style="font-size:12px;line-height:1.65;">Announcement (Email + Push + Inbox) → Reminder 1 (Email + Push) → Reminder 2 (Email + Push) → Reminder 3 (Email + Push) → Reminder 4 (Email + Push) → Final Reminder Day 38 (Email + Push) → Success: DD Confirmed (Push + Inbox) → Mystery Bonus Award (Email)</p>
+      </div>
+      <div class="hl" style="font-size:12px;">Day 8 group performed best — rolled to 85/15 split.</div>
     </div>
   </div>
 </div>
@@ -339,21 +312,22 @@
     <div>
       <div class="card card-purple" style="padding:16px;margin-bottom:12px;">
         <div class="label">Campaign Overview</div>
-        <p style="font-size:13px;margin-bottom:10px;">Three-send strategy across 5 channels to 9.8M eligible Chime members (iOS 16.2+), not a referral campaign. Goal: increase account funding by reducing IIT deposit friction with Apple Pay and building repeat funding behavior.</p>
+        <p style="font-size:13px;margin-bottom:10px;">Multi-channel experiment promoting Apple Pay as a fast, frictionless way to fund a Chime account via IIT. Not a referral campaign — targeted all eligible iOS members. Audience: 9.8M members (iOS 16.2+, app v5.273+). 90% treatment / 10% control. Goal: Non-DD deposit volume and funding rate up, while keeping DD conversion neutral.</p>
         <div class="grid-2" style="gap:8px;">
-          <div class="rbadge"><div class="n" style="font-size:22px;">20.3K</div><div class="l">Incremental Funders</div></div>
-          <div class="rbadge"><div class="n" style="font-size:22px;">14.5K</div><div class="l">Incremental TAs</div></div>
-          <div class="rbadge"><div class="n" style="font-size:22px;">15.2K</div><div class="l">Additional Purchasers</div></div>
-          <div class="rbadge"><div class="n" style="font-size:22px;">4.3K</div><div class="l">Lapsed Reactivated</div></div>
+          <div class="rbadge"><div class="n" style="font-size:22px;">+$20M</div><div class="l">in total deposits</div></div>
+          <div class="rbadge"><div class="n" style="font-size:22px;">+20.3K</div><div class="l">incremental funders</div></div>
+          <div class="rbadge"><div class="n" style="font-size:22px;">+14.5K</div><div class="l">incremental transactors</div></div>
+          <div class="rbadge"><div class="n" style="font-size:22px;">+15.2K</div><div class="l">incremental spenders</div></div>
         </div>
       </div>
-      <div class="hl">North star stayed constant: funded accounts. Stat-sig lifts in funding rate and deposit volume appeared after Send 1, with Apple Pay frequency growing to 3+ transactions/month.</div>
+      <div class="hl">No stat-sig lift in DD conversion — Apple Pay drives funding and activation. This was expected per experiment design.</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       <div class="card"><div class="label">Primary KPIs</div><div><span class="tag tag-purple">Deposit Volume</span><span class="tag tag-purple">Funding Rate</span><span class="tag tag-purple">Transaction Active Rate</span></div></div>
       <div class="card"><div class="label">Secondary KPIs</div><div><span class="tag tag-green">Purchase Rate</span><span class="tag tag-green">Apple Pay Txn Frequency</span></div></div>
       <div class="card"><div class="label">Experiment Design</div><p style="font-size:12px;">90/10 treatment vs control · 3-send blast: awareness, non-openers, habit formation · Data maturation 45 days</p></div>
-      <div class="card"><div class="label">Evergreen Follow-On</div><p style="font-size:12px;">Monthly evergreen email now targets members with Apple Pay enabled who still have never used it to fund their Chime account</p></div>
+      <div class="card"><div class="label">Post-GA Evergreen Program</div><p style="font-size:12px;">Monthly exposure to members who have Apple Pay enabled but have never used it to fund their account. Projected impact: $17M incremental deposits/year and 12K incremental TAs.</p></div>
+      <div class="card"><div class="label">Engagement Highlights</div><p style="font-size:12px;">Email: 34.7% open rate · In-App Banner: 15% CTR (top performer) · Consistent positive impact across ALL member tenure groups.</p></div>
       <div class="card"><div class="label">Channels</div><span class="ch">Email</span><span class="ch">Push</span><span class="ch">Inbox</span><span class="ch">In-App Banner</span><span class="ch">Bottomsheet</span></div>
     </div>
   </div>
@@ -365,7 +339,7 @@
   <p class="subtitle">Three-send strategy: awareness to non-opener nudge to habit formation</p>
   <div style="display:grid;grid-template-columns:375px 1fr;gap:24px;align-items:start;margin-top:4px;">
     <div>
-      <div class="label" style="margin-bottom:8px;">Day 0 — Awareness Email</div>
+      <div class="label" style="margin-bottom:8px;">Send 1 — Introducing New Feature</div>
       <div class="email-scroll">
         <section style="width:375px;background:#edf8f0;font-family:Arial,Helvetica,sans-serif;color:#111;margin:0;overflow:hidden;">
           <div style="padding:30px 28px 18px;background:#edf8f0;">
@@ -396,32 +370,41 @@
           </div>
         </section>
       </div>
+      <div class="card" style="padding:10px 12px;margin-top:8px;">
+        <p style="font-size:11px;line-height:1.5;">SL "New! Apple Pay for deposits"</p>
+        <p style="font-size:11px;line-height:1.5;">PH "Easy. Secure. Lightning fast."</p>
+        <p style="font-size:11px;line-height:1.5;">Email: "Easy deposits, meet Apple Pay!"</p>
+        <p style="font-size:11px;line-height:1.5;">Channels: Email + Push + Inbox + In-App Banner + Bottomsheet</p>
+      </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;">
-      <div class="label">Day 3 + Day 5 Follow-Up</div>
+      <div class="label">Send 2 + Send 3</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
         <div>
-          <div style="font-size:10px;color:#6b46ff;font-weight:700;text-align:center;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Day 3 — Push (Non-Openers)</div>
-          <div class="phone-sm"><div class="phone-screen"><div class="phone-time">9:41</div><div class="phone-date">Day 3</div><div class="phone-notif"><div class="phone-icon">C</div><div><div class="phone-notif-title">Did deposits just get easier?</div><div class="phone-notif-body">Yes! With Apple Pay, deposits into Chime are free, instant, and secure.</div></div></div></div></div>
-          <div style="font-size:9px;color:rgba(255,255,255,0.4);text-align:center;margin-top:4px;">Non-opener re-engagement</div>
+          <div style="font-size:10px;color:#6b46ff;font-weight:700;text-align:center;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Send 2 — Nudge to Non-Openers</div>
+          <div class="phone-sm"><div class="phone-screen"><div class="phone-time">9:41</div><div class="phone-date">Send 2</div><div class="phone-notif"><div class="phone-icon">C</div><div><div class="phone-notif-title">Did deposits just get easier?</div><div class="phone-notif-body">Yes! With Apple Pay, deposits into Chime are free, instant, and secure.</div></div></div></div></div>
+          <div class="card" style="padding:8px;margin-top:6px;">
+            <p style="font-size:10px;line-height:1.5;">SL "Did money deposits just get easier?"</p>
+            <p style="font-size:10px;line-height:1.5;">PH "Yes! With Apple Pay"</p>
+            <p style="font-size:10px;line-height:1.5;">Email: "Your smoothest money deposit."</p>
+            <p style="font-size:10px;line-height:1.5;">Push: "Did deposits just get easier? Yes! With Apple Pay, deposits into Chime are free, instant, and secure."</p>
+          </div>
         </div>
         <div>
-          <div style="font-size:10px;color:#6b46ff;font-weight:700;text-align:center;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Day 5 — Habit Formation Push + Inbox</div>
-          <div class="phone-sm"><div class="phone-screen"><div class="phone-time">9:41</div><div class="phone-date">Day 5</div><div class="phone-notif"><div class="phone-icon">C</div><div><div class="phone-notif-title">Pro tip: Transfer with Apple Pay</div><div class="phone-notif-body">Add money into Chime in a few easy, secure steps.</div></div></div></div></div>
-          <div style="font-size:9px;color:rgba(255,255,255,0.4);text-align:center;margin-top:4px;">Habit formation</div>
+          <div style="font-size:10px;color:#6b46ff;font-weight:700;text-align:center;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Send 3 — Habit Formation</div>
+          <div class="phone-sm"><div class="phone-screen"><div class="phone-time">9:41</div><div class="phone-date">Send 3</div><div class="phone-notif"><div class="phone-icon">C</div><div><div class="phone-notif-title">Pro tip: Use Apple Pay to move money.</div><div class="phone-notif-body">It's fast, easy, and secure.</div></div></div></div></div>
+          <div class="card" style="padding:8px;margin-top:6px;">
+            <p style="font-size:10px;line-height:1.5;">SL "Pro tip: Use Apple Pay to move money."</p>
+            <p style="font-size:10px;line-height:1.5;">PH "It's fast, easy, and secure."</p>
+            <p style="font-size:10px;line-height:1.5;">Email: "Tap into a super easy way to deposit."</p>
+          </div>
         </div>
       </div>
       <div style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.3);border-radius:12px;padding:14px;">
         <div style="font-size:12px;color:#34d399;font-weight:700;margin-bottom:8px;">Post-Launch Results</div>
-        <div style="display:grid;gap:5px;">
-          <div style="font-size:12px;color:rgba(255,255,255,0.7);">+20.3K incremental funders</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.7);">+14.5K transaction actives</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.7);">+15.2K additional purchasers</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.7);">4.3K lapsed members reactivated</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.7);">3+ avg Apple Pay transactions/month</div>
-        </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.7);">+$20M deposits · +20.3K funders · 3.08 avg monthly transactions · $17M projected annual impact from GA evergreen program.</p>
       </div>
-      <div class="hl" style="font-size:12px;">Stat-sig lifts confirmed after Send 1. Habit formation messaging drove sustained monthly usage.</div>
+      <div class="hl" style="font-size:12px;">Canvas progression moved members from awareness to repeated funding behavior with consistent lift across tenure cohorts.</div>
     </div>
   </div>
 </div>
@@ -434,7 +417,7 @@
     <div>
       <div class="card card-green" style="padding:14px;margin-bottom:12px;">
         <div class="label">Campaign Overview</div>
-        <p style="font-size:13px;margin-bottom:8px;">Targeted C2 members who referred a friend but did not yet qualify for payout because first deposit was under $200. Omnichannel nudge (email, push, content card, SMS) re-engaged them to complete a qualifying deposit and unlock the incentive.</p>
+        <p style="font-size:13px;margin-bottom:8px;">Targeted C2s who had already opened a Chime account and made a first deposit under $200 — meaning they were not yet qualifying for the referral bonus. This canvas re-engaged them with referral-specific messaging to deposit $200+ and unlock their incentive. Members must also activate their Chime card within 14 days.</p>
         <div class="grid-2" style="gap:8px;">
           <div class="rbadge"><div class="n" style="font-size:18px;">6.5K</div><div class="l">Monthly Eligible C2s</div></div>
           <div class="rbadge"><div class="n" style="font-size:18px;">22%</div><div class="l">D30 DD CVR</div></div>
@@ -475,9 +458,9 @@
     <div>
       <div class="label">How I'd Think About Wealthfront Lending</div>
       <div style="display:flex;flex-direction:column;gap:10px;">
-        <div class="canvas-box canvas-1"><div class="canvas-num" style="color:#a78bfa;">01</div><h4 style="font-size:13px;margin-bottom:4px;">Signal-Triggered Lending Cross-Sell</h4><p style="font-size:12px;">Trigger when members show high-intent signals: meaningful investable assets, lending page browse, and a lending-intent goal in Path. Personalize message, rate framing, and CTA by each member's actual financial profile.</p></div>
-        <div class="canvas-box canvas-2"><div class="canvas-num" style="color:#34d399;">02</div><h4 style="font-size:13px;margin-bottom:4px;">Bundle Experiment With Holdouts</h4><p style="font-size:12px;">Run a controlled test of Cash Account + Lending versus Investing + Lending entry narratives. Use holdouts and incremental lift readouts (VEGA methodology) to determine which bundle truly increases funded lending applications.</p></div>
-        <div class="canvas-box canvas-3"><div class="canvas-num" style="color:#f472b6;">03</div><h4 style="font-size:13px;margin-bottom:4px;">Expansion-State Personalization</h4><p style="font-size:12px;">In newly launched states, prioritize existing members as warm leads and personalize offers by current product usage before scaling to cold acquisition. Measure geo-level incrementality before broad budget expansion.</p></div>
+        <div class="canvas-box canvas-1"><div class="canvas-num" style="color:#a78bfa;">01</div><h4 style="font-size:13px;margin-bottom:4px;">Canvas 01</h4><p style="font-size:12px;"><strong>Who:</strong> Existing Wealthfront members already using Cash Account or Investing.<br><strong>What:</strong> Introduce lending as the next product in their financial journey.<br><strong>How:</strong> Trigger canvas when member browses the lending page, sets a homeownership goal in Path, or reaches a savings milestone suggesting home readiness. Personalize message to reflect their actual Wealthfront financial profile — investment balance, savings rate, account tenure.<br><strong>Why:</strong> Warmest possible audience — they already trust Wealthfront with their money.<br><strong>Measuring:</strong> Lending page click-through rate and loan application start rate.</p></div>
+        <div class="canvas-box canvas-2"><div class="canvas-num" style="color:#34d399;">02</div><h4 style="font-size:13px;margin-bottom:4px;">Canvas 02</h4><p style="font-size:12px;"><strong>Who:</strong> Members who signed up but haven't activated across products.<br><strong>What:</strong> Use lending as the entry point into the full Wealthfront ecosystem.<br><strong>How:</strong> A/B test whether leading with Cash Account + Lending bundle converts better than Investing + Lending as the intro offer. Use holdout groups — same methodology as VEGA — to measure true incremental activation lift.<br><strong>Why:</strong> Lending is a high-intent product that can pull members into the broader ecosystem.<br><strong>Measuring:</strong> Multi-product activation rate and cross-product attach rate vs. holdout.</p></div>
+        <div class="canvas-box canvas-3"><div class="canvas-num" style="color:#f472b6;">03</div><h4 style="font-size:13px;margin-bottom:4px;">Canvas 03</h4><p style="font-size:12px;"><strong>Who:</strong> Existing Wealthfront members in states where lending just launched.<br><strong>What:</strong> Personalized lending offer based on their current product usage.<br><strong>How:</strong> Geo-trigger based on state eligibility. Personalize messaging based on what products the member already uses — Cash Account members get a savings-to-homeownership narrative, Investing members get a wealth-building + homeownership narrative. Test personalized offers vs. generic lending awareness before scaling to cold audiences.<br><strong>Why:</strong> Existing members in new states are warm leads — dramatically cheaper to convert than acquiring new users.<br><strong>Measuring:</strong> Lending application start rate among existing members vs. cold audience benchmark.</p></div>
       </div>
     </div>
   </div>
@@ -486,20 +469,20 @@
 
 <!-- SLIDE 11 -->
 <div class="slide" id="slide-11">
-  <h2>How I Measure What Matters</h2>
-  <p class="subtitle">I measure what I cause, not just what happens: platform reporting, internal validation, then holdout-validated incrementality.</p>
+  <h2>Three Numbers. Only One That Matters for Budget Decisions.</h2>
+  <p class="subtitle">How I know lifecycle programs are truly working: platform signal, internal validation, then causal incrementality.</p>
   <div class="grid-3" style="margin-bottom:16px;">
-    <div class="card card-purple"><div class="label">1) Platform Reported</div><p style="font-size:13px;margin-bottom:10px;">Topline ESP/platform conversions show directional movement but can over-credit impact.</p><span class="tag tag-purple">Clicks</span><span class="tag tag-purple">Attributed Conversions</span><span class="tag tag-purple">Revenue</span></div>
-    <div class="card card-green"><div class="label">2) Internally Validated</div><p style="font-size:13px;margin-bottom:10px;">Reconcile platform claims with internal data using a strict 24hr click window to remove inflated attribution.</p><span class="tag tag-green">24hr Click Window</span><span class="tag tag-green">Member-Level Matchback</span><span class="tag tag-green">Data QA</span></div>
-    <div class="card card-pink"><div class="label">3) Holdout-Validated Incremental</div><p style="font-size:13px;margin-bottom:8px;">Only the lift versus a proper holdout answers, “Did this program actually cause behavior change?”</p><p style="font-size:12px;margin-top:6px;color:rgba(255,255,255,0.45);">This is the number used for budget and rollout decisions.</p></div>
+    <div class="card card-purple"><div class="label">X: Platform Reported</div><p style="font-size:13px;margin-bottom:10px;">What the ESP reports. Always overstates impact because it includes organic conversions that would have happened anyway. Use this for deliverability and engagement monitoring only, never for budget decisions.</p></div>
+    <div class="card card-green"><div class="label">Y: Internally Validated</div><p style="font-size:13px;margin-bottom:10px;">Platform data cross-referenced with internal data warehouse using a 24-hour click window. Removes false positives from long attribution windows. More accurate but still not the source of truth.</p></div>
+    <div class="card card-pink"><div class="label">Z: Holdout-Validated Incremental</div><p style="font-size:13px;margin-bottom:8px;">The only number used for budget decisions. Requires a global holdout group withheld from all sends before the first message goes out. Measures what we actually caused vs. what would have happened organically. This is how VEGA's +18% lift was validated.</p></div>
   </div>
   <div class="card-indigo" style="padding:20px;">
-    <div class="label" style="margin-bottom:14px;">Experiment Design Principles — Why Each Rule Matters</div>
+    <div class="label" style="margin-bottom:14px;">Experiment Design Principles — Why Each Number Matters</div>
     <div class="grid-4">
-      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">10%</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Global holdout set before first send so incrementality is clean</div></div>
-      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">95%</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Confidence threshold to avoid scaling noise as false positives</div></div>
-      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">30D</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Minimum runtime to capture delayed conversion behavior</div></div>
-      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">1</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">One conversion counted per member to prevent duplicate credit</div></div>
+      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">10%</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Holdout — without this baseline you cannot separate lifecycle-driven conversions from organic behavior</div></div>
+      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">95%</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Confidence — below this threshold any lift could be noise</div></div>
+      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">30D</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Runtime — considered purchases need full measurement windows or you undercount late converters</div></div>
+      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">1</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Conversion per member — prevents double-counting members who convert multiple times</div></div>
     </div>
   </div>
 </div>
