@@ -377,20 +377,74 @@
 
 <!-- SLIDE 9 -->
 <div class="slide" id="slide-9">
-  <h2>Three Numbers. Only One That Matters for Budget Decisions.</h2>
-  <p class="subtitle">How I know lifecycle programs are truly working: platform signal, internal validation, then causal incrementality.</p>
-  <div class="grid-3" style="margin-bottom:16px;">
-    <div class="card card-purple"><div class="label">X: Platform Reported</div><p style="font-size:13px;margin-bottom:10px;">What the ESP reports. Always overstates impact because it includes organic conversions that would have happened anyway. Use this for deliverability and engagement monitoring only, never for budget decisions.</p></div>
-    <div class="card card-green"><div class="label">Y: Internally Validated</div><p style="font-size:13px;margin-bottom:10px;">Platform data cross-referenced with internal data warehouse using a 24-hour click window. Removes false positives from long attribution windows. More accurate but still not the source of truth.</p></div>
-    <div class="card card-pink"><div class="label">Z: Holdout-Validated Incremental</div><p style="font-size:13px;margin-bottom:8px;">The only number used for budget decisions. Requires a global holdout group withheld from all sends before the first message goes out. Measures what we actually caused vs. what would have happened organically. This is how VEGA's +18% lift was validated.</p></div>
-  </div>
-  <div class="card-indigo" style="padding:20px;">
-    <div class="label" style="margin-bottom:14px;">Experiment Design Principles: Why Each Number Matters</div>
-    <div class="grid-4">
-      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">10%</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Holdout: without this baseline you cannot separate lifecycle-driven conversions from organic behavior</div></div>
-      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">95%</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Confidence: below this threshold any lift could be noise</div></div>
-      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">30D</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Runtime: considered purchases need full measurement windows or you undercount late converters</div></div>
-      <div style="text-align:center;"><div style="font-size:32px;font-weight:800;color:#a78bfa;">1</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px;">Conversion per member: prevents double-counting members who convert multiple times</div></div>
+  <h2>How I Know It's Actually Working</h2>
+  <p class="subtitle">From pre-launch validation to holdout-proven incrementality.</p>
+  <div style="display:flex;flex-direction:column;gap:16px;padding-bottom:8px;">
+    <div class="card-indigo" style="padding:16px;">
+      <div class="label" style="margin-bottom:10px;">Pre-Launch</div>
+      <div style="overflow-x:auto;overflow-y:hidden;">
+        <div style="display:flex;align-items:stretch;gap:10px;min-width:1200px;">
+          <div class="card card-purple" style="flex:0 0 360px;padding:12px;">
+            <div class="label">Step 1</div>
+            <p style="font-size:12px;line-height:1.5;">Sizing with Analyst. Confirm eligible audience is large enough to reach stat sig. Example: VEGA sized at 7M+ members across 4 variants.</p>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;color:#a78bfa;font-size:18px;font-weight:700;">→</div>
+          <div class="card card-pink" style="flex:0 0 360px;padding:12px;">
+            <div class="label">Step 2</div>
+            <p style="font-size:12px;line-height:1.5;">Cohort Build with Engineering. Bucket members into CRM platform via internal data pipeline. Confirm event tracking and filters are firing correctly.</p>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;color:#a78bfa;font-size:18px;font-weight:700;">→</div>
+          <div class="card card-green" style="flex:0 0 360px;padding:12px;">
+            <div class="label">Step 3</div>
+            <p style="font-size:12px;line-height:1.5;">Holdout Established. 10% withheld before first send. Without this baseline no conversion number can be trusted.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="padding:16px;">
+      <div class="label" style="margin-bottom:12px;">During Launch</div>
+      <div style="position:relative;padding:16px 6px 0;">
+        <div style="position:absolute;left:3%;right:3%;top:22px;height:2px;background:rgba(107,70,255,0.38);"></div>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;position:relative;">
+          <div style="text-align:left;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#a78bfa;margin-bottom:8px;"></div>
+            <div style="font-size:12px;font-weight:700;color:#a78bfa;margin-bottom:4px;">24hr</div>
+            <p style="font-size:11px;line-height:1.45;color:rgba(255,255,255,0.72);">Entries vs cohort size match? Messages sending? Canvas firing correctly across all touchpoints?</p>
+          </div>
+          <div style="text-align:left;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#a78bfa;margin-bottom:8px;"></div>
+            <div style="font-size:12px;font-weight:700;color:#a78bfa;margin-bottom:4px;">3D</div>
+            <p style="font-size:11px;line-height:1.45;color:rgba(255,255,255,0.72);">Open rates, click rates, delivery rate. Are members progressing through each canvas step? Example: VEGA email open rate tracking above benchmark.</p>
+          </div>
+          <div style="text-align:left;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#34d399;margin-bottom:8px;"></div>
+            <div style="font-size:12px;font-weight:700;color:#34d399;margin-bottom:4px;">7D</div>
+            <p style="font-size:11px;line-height:1.45;color:rgba(255,255,255,0.72);">Exits and conversions starting to show. Which touchpoints are driving action? Example: Mystery Bonus Day 8 group showing stronger DD intent than Day 0.</p>
+          </div>
+          <div style="text-align:left;">
+            <div style="width:11px;height:11px;border-radius:50%;background:#34d399;margin-bottom:8px;"></div>
+            <div style="font-size:12px;font-weight:700;color:#34d399;margin-bottom:4px;">30D</div>
+            <p style="font-size:11px;line-height:1.45;color:rgba(255,255,255,0.72);">Full measurement window. CRM data cross-referenced with analyst backend data. Enrollments, referral send rate, card activation, direct deposit CVR, holdout comparison. Example: VEGA $125 variant showed +18% lift vs holdout.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-indigo" style="padding:16px;">
+      <div class="label" style="margin-bottom:10px;">Post-Launch</div>
+      <div class="grid-3">
+        <div class="card card-purple" style="padding:14px;">
+          <div class="label">CRM Platform</div>
+          <p style="font-size:12px;line-height:1.5;">Engagement signal only. Opens, clicks, sends, canvas entries, message volume per touchpoint. Never used alone for budget decisions.</p>
+        </div>
+        <div class="card card-green" style="padding:14px;">
+          <div class="label">Internal Validation</div>
+          <p style="font-size:12px;line-height:1.5;">Analyst cross-references CRM data against backend conversion data using 24hr click window. Removes false positives.</p>
+        </div>
+        <div class="card card-pink" style="padding:14px;">
+          <div class="label">Holdout-Validated Incremental</div>
+          <p style="font-size:12px;line-height:1.5;">The only number used for budget decisions. What did we actually cause vs what would have happened organically. This is how VEGA's +18% and Mystery Bonus Day 8 win were confirmed.</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
