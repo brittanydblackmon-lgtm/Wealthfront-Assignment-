@@ -70,7 +70,7 @@
 <div class="topbar">
   <div class="topbar-logo">Wealthfront</div>
   <div id="tag-display" class="slide-tag-pill">Introduction</div>
-  <div class="topbar-counter" id="counter">1 / 9</div>
+  <div class="topbar-counter" id="counter">1 / 10</div>
 </div>
 <div class="deck">
 
@@ -228,9 +228,14 @@
       <div class="card"><div class="label">Experiment Design</div><p style="font-size:12px;">Timing experiment tested which day post-enrollment should trigger the full canvas sequence. All members receive the exact same emails and pushes. The only variable is the entry trigger: D0, D8, or D18 after account creation. Day 8 performed best. It directly informed an update to the broader C2 onboarding journey.</p></div>
     </div>
   </div>
-  <div class="card-indigo" style="padding:14px;margin-top:2px;">
-    <div class="label">How Day 8 Informed C2 Onboarding Design</div>
-    <div style="overflow-x:auto;overflow-y:hidden;padding-bottom:6px;">
+</div>
+
+<!-- SLIDE 6 -->
+<div class="slide" id="slide-6">
+  <h2>How Day 8 Reshaped C2 Onboarding</h2>
+  <p class="subtitle">The experiment result became the product design principle</p>
+  <div class="card-indigo" style="padding:18px;margin-top:8px;">
+    <div style="overflow-x:auto;overflow-y:visible;padding:8px 2px 12px;">
       <div style="display:flex;align-items:stretch;gap:10px;min-width:1300px;">
         <div style="flex:0 0 240px;background:rgba(107,70,255,0.12);border:1px solid rgba(107,70,255,0.35);border-radius:10px;padding:10px;">
           <div style="font-size:12px;font-weight:700;color:#a78bfa;margin-bottom:4px;">C2 Joins Chime</div>
@@ -263,8 +268,8 @@
   </div>
 </div>
 
-<!-- SLIDE 6: MYSTERY BONUS CREATIVE -->
-<div class="slide" id="slide-6">
+<!-- SLIDE 7: MYSTERY BONUS CREATIVE -->
+<div class="slide" id="slide-7">
   <h2>C2 Mystery Bonus: Canvas Journey</h2>
   <p class="subtitle">One unified canvas sequence. Entry day is the only variable.</p>
   <div style="display:grid;grid-template-columns:375px 1fr;gap:24px;align-items:start;margin-top:4px;">
@@ -346,8 +351,8 @@
   </div>
 </div>
 
-<!-- SLIDE 7 -->
-<div class="slide" id="slide-7">
+<!-- SLIDE 8 -->
+<div class="slide" id="slide-8">
   <h2>What I Learned and How I'd Apply It</h2>
   <p class="subtitle">From Chime's referral and funding lifecycle to Wealthfront's lending expansion</p>
   <div class="grid-2" style="margin-bottom:16px;">
@@ -370,8 +375,8 @@
   </div>
 </div>
 
-<!-- SLIDE 8 -->
-<div class="slide" id="slide-8">
+<!-- SLIDE 9 -->
+<div class="slide" id="slide-9">
   <h2>Three Numbers. Only One That Matters for Budget Decisions.</h2>
   <p class="subtitle">How I know lifecycle programs are truly working: platform signal, internal validation, then causal incrementality.</p>
   <div class="grid-3" style="margin-bottom:16px;">
@@ -390,8 +395,8 @@
   </div>
 </div>
 
-<!-- SLIDE 9 -->
-<div class="slide" id="slide-9">
+<!-- SLIDE 10 -->
+<div class="slide" id="slide-10">
   <div style="text-align:center;max-width:680px;margin:0 auto;">
     <h2 style="font-size:44px;margin-bottom:14px;">Thank You</h2>
     <div style="margin-top:24px;"><p style="font-size:13px;color:rgba(255,255,255,0.3);">brittanydblackmon@gmail.com</p></div>
@@ -405,8 +410,8 @@
   <button onclick="next()">Next</button>
 </div>
 <script>
-  let cur=1;const total=9;
-  const tags=['Introduction','Business Context','VEGA: Program Overview','VEGA: Canvas Journey','Mystery Bonus: Overview','Mystery Bonus: Canvas Journey','Application to Wealthfront','Measurement','Thank You'];
+  let cur=1;const total=10;
+  const tags=['Introduction','Business Context','VEGA: Program Overview','VEGA: Canvas Journey','Mystery Bonus: Overview','Mystery Bonus: Onboarding Impact','Mystery Bonus: Canvas Journey','Application to Wealthfront','Measurement','Thank You'];
   function buildDots(){const d=document.getElementById('dots');for(let i=1;i<=total;i++){const dot=document.createElement('div');dot.className='dot'+(i===1?' active':'');dot.onclick=()=>go(i);d.appendChild(dot);}}
   function go(n){document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.dot').forEach(d=>d.classList.remove('active'));document.getElementById('slide-'+n).classList.add('active');document.querySelectorAll('.dot')[n-1].classList.add('active');document.getElementById('counter').textContent=n+' / '+total;document.getElementById('tag-display').textContent=tags[n-1];cur=n;}
   function next(){if(cur<total)go(cur+1);}
