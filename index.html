@@ -230,8 +230,8 @@
   </div>
 </div>
 
-<!-- SLIDE 6 -->
-<div class="slide" id="slide-6">
+<!-- SLIDE 7 -->
+<div class="slide" id="slide-7">
   <h2>How Day 8 Reshaped C2 Onboarding</h2>
   <p class="subtitle">The experiment result became the product design principle</p>
   <div class="card-indigo" style="padding:18px;margin-top:8px;">
@@ -268,8 +268,8 @@
   </div>
 </div>
 
-<!-- SLIDE 7: MYSTERY BONUS CREATIVE -->
-<div class="slide" id="slide-7">
+<!-- SLIDE 6: MYSTERY BONUS CREATIVE -->
+<div class="slide" id="slide-6">
   <h2>C2 Mystery Bonus: Canvas Journey</h2>
   <p class="subtitle">One unified canvas sequence. Entry day is the only variable.</p>
   <div style="display:grid;grid-template-columns:375px 1fr;gap:24px;align-items:start;margin-top:4px;">
@@ -464,7 +464,7 @@
 </div>
 <script>
   let cur=1;const total=10;
-  const tags=['Introduction','Business Context','VEGA: Program Overview','VEGA: Canvas Journey','Mystery Bonus: Overview','Mystery Bonus: Onboarding Impact','Mystery Bonus: Canvas Journey','Application to Wealthfront','Measurement','Thank You'];
+  const tags=['Introduction','Business Context','VEGA: Program Overview','VEGA: Canvas Journey','Mystery Bonus: Overview','Mystery Bonus: Canvas Journey','Mystery Bonus: Onboarding Impact','Application to Wealthfront','Measurement','Thank You'];
   function buildDots(){const d=document.getElementById('dots');for(let i=1;i<=total;i++){const dot=document.createElement('div');dot.className='dot'+(i===1?' active':'');dot.onclick=()=>go(i);d.appendChild(dot);}}
   function go(n){document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.dot').forEach(d=>d.classList.remove('active'));document.getElementById('slide-'+n).classList.add('active');document.querySelectorAll('.dot')[n-1].classList.add('active');document.getElementById('counter').textContent=n+' / '+total;document.getElementById('tag-display').textContent=tags[n-1];cur=n;}
   function next(){if(cur<total)go(cur+1);}
