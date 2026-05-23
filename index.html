@@ -236,30 +236,46 @@
   <p class="subtitle">The experiment result became the product design principle</p>
   <div class="card-indigo" style="padding:18px;margin-top:8px;">
     <div style="overflow-x:auto;overflow-y:visible;padding:8px 2px 12px;">
-      <div style="display:flex;align-items:stretch;gap:10px;min-width:1300px;">
-        <div style="flex:0 0 240px;background:rgba(107,70,255,0.12);border:1px solid rgba(107,70,255,0.35);border-radius:10px;padding:10px;">
-          <div style="font-size:12px;font-weight:700;color:#a78bfa;margin-bottom:4px;">C2 Joins Chime</div>
-          <p style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.45;">Days 1 to 7: Standard onboarding. Same intro experience as all new members regardless of how they found Chime.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;min-width:1650px;">
+        <div style="display:flex;align-items:stretch;gap:10px;">
+          <div style="flex:0 0 250px;background:rgba(107,70,255,0.12);border:1px solid rgba(107,70,255,0.35);border-radius:10px;padding:10px;">
+            <div style="font-size:12px;font-weight:700;color:#a78bfa;margin-bottom:4px;">C2 Joins Chime</div>
+            <p style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.45;">Days 1 to 7: Standard onboarding. Same intro experience as all new members.</p>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;color:#a78bfa;font-size:18px;font-weight:700;min-width:44px;">→</div>
+          <div style="flex:0 0 280px;background:rgba(244,114,182,0.12);border:1px solid rgba(244,114,182,0.35);border-radius:10px;padding:10px;">
+            <div style="font-size:12px;font-weight:700;color:#f472b6;margin-bottom:4px;">Day 8 Check</div>
+            <p style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.45;">C2 members only. Has the member set up direct deposit?</p>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:72px;">
+            <div style="font-size:10px;font-weight:800;letter-spacing:0.8px;color:#e5e7eb;">YES</div>
+            <div style="color:#e5e7eb;font-size:18px;font-weight:700;">→</div>
+          </div>
+          <div style="flex:0 0 300px;background:rgba(255,255,255,0.9);border:1px solid rgba(255,255,255,0.7);border-radius:10px;padding:10px;">
+            <div style="font-size:12px;font-weight:700;color:#111827;margin-bottom:4px;">Continues in standard onboarding</div>
+            <p style="font-size:11px;color:#374151;line-height:1.45;">No intervention needed.</p>
+          </div>
         </div>
-        <div style="display:flex;align-items:center;justify-content:center;color:#a78bfa;font-size:18px;font-weight:700;">→</div>
-        <div style="flex:0 0 240px;background:rgba(244,114,182,0.12);border:1px solid rgba(244,114,182,0.35);border-radius:10px;padding:10px;">
-          <div style="font-size:12px;font-weight:700;color:#f472b6;margin-bottom:4px;">Day 8 Check</div>
-          <p style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.45;">Has the member set up direct deposit? If yes, exit to Card Activation canvas. If no, enter DD canvas.</p>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:center;color:#34d399;font-size:18px;font-weight:700;">→</div>
-        <div style="flex:0 0 250px;background:rgba(52,211,153,0.14);border:2px solid rgba(52,211,153,0.55);border-radius:10px;padding:10px;box-shadow:0 0 0 1px rgba(52,211,153,0.15) inset;">
-          <div style="font-size:12px;font-weight:700;color:#34d399;margin-bottom:4px;">DD Canvas</div>
-          <p style="font-size:11px;color:rgba(255,255,255,0.8);line-height:1.45;">Lead message: set up direct deposit. Secondary message: activate your Chime card within 14 days. Duration: approximately 1 week. Exit condition: member sets up direct deposit.</p>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:center;color:#a78bfa;font-size:18px;font-weight:700;">→</div>
-        <div style="flex:0 0 250px;background:rgba(99,102,241,0.14);border:1px solid rgba(129,140,248,0.4);border-radius:10px;padding:10px;">
-          <div style="font-size:12px;font-weight:700;color:#c4b5fd;margin-bottom:4px;">Card Activation Canvas</div>
-          <p style="font-size:11px;color:rgba(255,255,255,0.78);line-height:1.45;">Member has direct deposited. Now focused on card activation within 14 day window to unlock incentive. Duration: approximately 2 weeks. Exit condition: card activated.</p>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.55);font-size:18px;font-weight:700;">→</div>
-        <div style="flex:0 0 250px;background:rgba(255,255,255,0.9);border:1px solid rgba(255,255,255,0.7);border-radius:10px;padding:10px;">
-          <div style="font-size:12px;font-weight:700;color:#111827;margin-bottom:4px;">Back to Standard Onboarding</div>
-          <p style="font-size:11px;color:#374151;line-height:1.45;">Member has completed both steps and receives incentive. Returns to regular Chime onboarding for broader product education.</p>
+        <div style="display:flex;align-items:stretch;gap:10px;padding-left:314px;">
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:72px;">
+            <div style="font-size:10px;font-weight:800;letter-spacing:0.8px;color:#34d399;">NO</div>
+            <div style="color:#34d399;font-size:18px;font-weight:700;">↓</div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;color:#34d399;font-size:18px;font-weight:700;min-width:44px;">→</div>
+          <div style="flex:0 0 320px;background:rgba(52,211,153,0.14);border:2px solid rgba(52,211,153,0.55);border-radius:10px;padding:10px;box-shadow:0 0 0 1px rgba(52,211,153,0.15) inset;">
+            <div style="font-size:12px;font-weight:700;color:#34d399;margin-bottom:4px;">DD Canvas</div>
+            <p style="font-size:11px;color:rgba(255,255,255,0.8);line-height:1.45;">Lead message: direct deposit. Secondary message: activate Chime card within 14 days. Duration: approximately 1 week. Exit condition: member sets up direct deposit.</p>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;color:#a78bfa;font-size:18px;font-weight:700;min-width:44px;">→</div>
+          <div style="flex:0 0 300px;background:rgba(99,102,241,0.14);border:1px solid rgba(129,140,248,0.4);border-radius:10px;padding:10px;">
+            <div style="font-size:12px;font-weight:700;color:#c4b5fd;margin-bottom:4px;">Card Activation Canvas</div>
+            <p style="font-size:11px;color:rgba(255,255,255,0.78);line-height:1.45;">Member has direct deposited. Now focused solely on card activation within 14 day window to unlock incentive. Duration: approximately 2 weeks. Exit condition: card activated.</p>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:center;color:#a78bfa;font-size:18px;font-weight:700;min-width:44px;">→</div>
+          <div style="flex:0 0 240px;background:rgba(107,70,255,0.12);border:1px solid rgba(107,70,255,0.35);border-radius:10px;padding:10px;">
+            <div style="font-size:12px;font-weight:700;color:#a78bfa;margin-bottom:4px;">Back to Standard Onboarding</div>
+            <p style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.45;">Both steps complete. Incentive unlocked.</p>
+          </div>
         </div>
       </div>
     </div>
