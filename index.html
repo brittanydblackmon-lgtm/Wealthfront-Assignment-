@@ -116,13 +116,13 @@
 <!-- SLIDE 3 -->
 <div class="slide" id="slide-3" style="padding-top:36px;padding-bottom:36px;">
   <h2 style="font-size:26px;">VEGA: Variable Evergreen General Audience</h2>
-  <p class="subtitle" style="font-size:12px;margin-bottom:12px;">From failed ML model to personalized offer engine. Originally built for C1 referrers, now being tested for C2 referred members.</p>
+  <p class="subtitle" style="font-size:12px;margin-bottom:12px;">From failed ML model to personalized offer engine. Proven in promos, then scaled to evergreen. Originally built for C1 referrers, now being tested for C2 referred members.</p>
   <div class="grid-2">
     <div>
       <div class="tl" style="gap:8px;margin-bottom:8px;"><div class="tl-dot">1</div><div><h4 style="font-size:14px;">The Hypothesis</h4><p style="font-size:13px;">Members convert better when the offer reflects their predicted likelihood, not a flat $100 for everyone.</p></div></div>
       <div class="tl" style="gap:8px;margin-bottom:8px;"><div class="tl-dot">2</div><div><h4 style="font-size:14px;">First Attempt: DSML Optimization</h4><p style="font-size:13px;">ML-powered targeting yielded neutral lift after adjusting for sample imbalance. Diagnosed the failure and pivoted fast.</p></div></div>
       <div class="tl" style="gap:8px;margin-bottom:8px;"><div class="tl-dot">3</div><div><h4 style="font-size:14px;">The Pivot: Randomized Offer Testing</h4><p style="font-size:13px;">Shifted to randomized offer amounts ($100, $125, $150, $200) across 7M+ members. Proper holdout via ExPlat. 50/50 split. 11-week runtime. The offer amounts per bucket vary by campaign and goal. The Urgency Offer experiment used $100, $125, $150, and $200. Other VEGA-powered campaigns use entirely different amounts depending on what behavior is being incentivized. The framework stays consistent. The amounts flex.</p></div></div>
-      <div class="tl" style="gap:8px;margin-bottom:8px;"><div class="tl-dot">4</div><div><h4 style="font-size:14px;">Result: $125 Won for the Urgency Offer Experiment. VEGA Now Powers All Evergreen C1 Referral Comms.</h4><p style="font-size:13px;">+18% lift in 30D DDers for C1 members. All variants positive ROI. The VEGA framework dynamically populates variable offer amounts across all evergreen C1 referral communications. Rolled to 23.5M active C1 members. Approximately 20K newly enrolled C1 members targeted per day ongoing.</p></div></div>
+      <div class="tl" style="gap:8px;margin-bottom:8px;"><div class="tl-dot">4</div><div><h4 style="font-size:14px;">Result: $125 Won Across Promo Testing. VEGA Then Expanded to Evergreen.</h4><p style="font-size:13px;">+18% lift in 30D DDers came from VEGA being applied across promo campaigns. Because promos performed well, VEGA was expanded to power all evergreen C1 referral communications. Rolled to 23.5M active C1 members. Approximately 20K newly enrolled C1 members targeted per day ongoing.</p></div></div>
       <div class="tl" style="gap:8px;margin-bottom:8px;"><div class="tl-dot">5</div><div><h4 style="font-size:14px;">What's Next: DSML-Optimized Variable Baseline</h4><p style="font-size:13px;">Building on VEGA's randomized testing data, the team launched a new experiment this quarter. A T-learner uplift model now serves $100/$150/$200 offers to 15.4M C1 members based on predicted incremental conversions per dollar. These amounts reflect this specific baseline test and can change by campaign goal. It concentrates spend on members who genuinely respond to higher offers and avoids overpaying members who would refer at $100 anyway. This is the next ML model VEGA's data was training.</p></div></div>
       <div class="hl" style="margin-top:8px;margin-bottom:8px;">The first pass failed. We diagnosed it, pivoted, and built something better. That data is now training the next ML model.</div>
     </div>
@@ -151,7 +151,7 @@
 <!-- SLIDE 4: VEGA CREATIVE -->
 <div class="slide" id="slide-4" style="padding-top:36px;">
   <h2>VEGA: How the Dynamic Offer Works</h2>
-  <p class="subtitle">VEGA is not a campaign. It is a dynamic offer attribution framework that populates each member's personalized incentive amount across any channel or canvas. The Urgency Offer email below is one example of VEGA in action.</p>
+  <p class="subtitle">VEGA is not a campaign. It is a dynamic offer attribution framework proven in promo campaigns like the Urgency Offer and then expanded to evergreen communications. The Urgency Offer below is one example of VEGA in action — it runs quarterly as a promo, not an evergreen.</p>
   <div style="display:grid;grid-template-columns:375px 1fr;gap:24px;align-items:start;margin-top:4px;">
     <div>
       <div class="label" style="margin-bottom:8px;">Real Chime Email: Urgency Offer (C1 Only)</div>
@@ -194,12 +194,12 @@
           </div>
         </section>
       </div>
-      <div style="margin-top:8px;font-size:11px;color:#1DB954;font-weight:700;">The [$125] shown here is the Urgency Offer experiment winning variant. VEGA-powered campaigns use different amounts depending on the offer structure and behavior being incentivized. The framework dynamically populates whatever amount that member is assigned.</div>
+      <div style="margin-top:8px;font-size:11px;color:#1DB954;font-weight:700;">The [$125] shown here is the Urgency Offer winning variant — a quarterly promo. VEGA powers this promo and all other referral comms by dynamically populating whatever offer amount that member is assigned. The +18% lift came from VEGA applied across promos. That result justified expanding VEGA to evergreen.</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:6px;">
       <div class="label">Variant Breakdown</div>
       <div class="card card-purple" style="padding:10px;"><div class="label">Variant A</div><div style="font-size:20px;font-weight:800;color:#a78bfa;margin-bottom:4px;">$100</div><p style="font-size:12px;">Standard baseline control group</p></div>
-      <div class="card card-green" style="padding:10px;border:2px solid #34d399;"><div class="label">Variant B Winner</div><div style="font-size:20px;font-weight:800;color:#34d399;margin-bottom:4px;">$125</div><p style="font-size:12px;">+18% lift in 30D DDers vs control. Rolled to GA.</p></div>
+      <div class="card card-green" style="padding:10px;border:2px solid #34d399;"><div class="label">Variant B Winner</div><div style="font-size:20px;font-weight:800;color:#34d399;margin-bottom:4px;">$125</div><p style="font-size:12px;">+18% lift across promo testing. Framework scaled to evergreen.</p></div>
       <div class="card card-pink" style="padding:10px;"><div class="label">Variant C</div><div style="font-size:20px;font-weight:800;color:#f472b6;margin-bottom:4px;">$150</div><p style="font-size:12px;">Positive ROI, informing the next DSML model</p></div>
       <div class="card card-pink" style="padding:10px;border-left:4px solid #f59e0b;"><div class="label">Variant D</div><div style="font-size:20px;font-weight:800;color:#f472b6;margin-bottom:4px;">$200</div><p style="font-size:12px;">Positive ROI. Higher spend per member. Data from all variants now training the next DSML model.</p></div>
       <div style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);border-radius:10px;padding:12px;">
@@ -415,7 +415,7 @@
   <div class="grid-2" style="margin-bottom:16px;">
     <div style="display:flex;flex-direction:column;gap:10px;">
       <div class="label">Key Learnings</div>
-      <div class="card card-purple" style="padding:14px;"><p style="font-size:13px;"><strong style="color:#a78bfa;">Spend where it actually changes behavior.</strong> The first DSML model gave the highest incentives to members most likely to refer anyway, wasting budget on people who would have converted at $100. VEGA's randomized testing collected the behavioral data to fix that. Now the T-learner model concentrates spend on members who genuinely need a higher offer to act, not on members who would have referred regardless. At Wealthfront this same principle applies to lending. We don't know yet which message, offer, or entry point converts a member into starting a loan application. The answer is in the data. The way to get the data is to randomize first, then let the model optimize.</p></div>
+      <div class="card card-purple" style="padding:14px;"><p style="font-size:13px;"><strong style="color:#a78bfa;">Spend where it actually changes behavior.</strong> The first DSML model gave the highest incentives to members most likely to refer anyway, wasting budget on people who would have converted at $100. VEGA's randomized testing across promo campaigns collected the behavioral data to fix that. The +18% lift across promos proved the framework worked, which justified expanding it to evergreen. At Wealthfront this same principle applies to lending. We don't know yet which message, offer, or entry point converts a member into starting a loan application. The answer is in the data. The way to get the data is to randomize first, then let the model optimize.</p></div>
       <div class="card card-green" style="padding:14px;"><p style="font-size:13px;"><strong style="color:#34d399;">The analyst's list and Braze's list are never the same list.</strong> During the VEGA rollout, Engineering bucketed 7M members but Braze delivered to significantly fewer because of unsubscribes, disabled push, and deliverability filters. The 24-hour check caught that gap, triggered backfills, and identified in-app and inbox as alternate channels for members who could no longer be reached by email or push.</p></div>
       <div class="card card-pink" style="padding:14px;"><p style="font-size:13px;"><strong style="color:#f472b6;">Day 8 works because referred members need more runway than organic ones.</strong> The experiment data showed Day 0 had lower CVR because referred members hadn't had enough time to understand Chime yet. They were still in the signing-up-for-the-incentive mindset. Day 18 was too late. The consideration window had closed and engagement had dropped off. Day 8 hit the exact moment when the member had enough context to act but had not yet gone cold.</p></div>
     </div>
@@ -482,7 +482,7 @@
           <div style="text-align:left;">
             <div style="width:11px;height:11px;border-radius:50%;background:#34d399;margin-bottom:8px;"></div>
             <div style="font-size:12px;font-weight:700;color:#34d399;margin-bottom:4px;">30D</div>
-            <p style="font-size:12px;line-height:1.45;color:rgba(255,255,255,0.72);">Full measurement window. CRM data cross-referenced with analyst backend data. Enrollments, referral send rate, card activation, direct deposit CVR, holdout comparison. Example: Urgency Offer $125 variant showed +18% lift vs holdout.</p>
+            <p style="font-size:12px;line-height:1.45;color:rgba(255,255,255,0.72);">Full measurement window. CRM data cross-referenced with analyst backend data. Enrollments, referral send rate, card activation, direct deposit CVR, holdout comparison. Example: VEGA across promo campaigns showed +18% lift vs holdout, which justified expanding the framework to evergreen communications.</p>
           </div>
         </div>
       </div>
