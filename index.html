@@ -415,12 +415,71 @@
 
 <!-- SLIDE 8 -->
 <div class="slide" id="slide-8" style="justify-content:flex-start;padding:72px 56px 52px;">
-  <h2>What I Learned</h2>
-  <p class="subtitle">Three things from Chime that changed how I think about lifecycle.</p>
-  <div style="display:flex;flex-direction:column;gap:14px;max-width:1120px;padding:10px 0 18px;">
-    <div class="card card-purple" style="padding:14px;"><p style="font-size:13px;"><strong style="color:#a78bfa;">Spend where it actually changes behavior.</strong> The first DSML model gave the highest incentives to members most likely to refer anyway, wasting budget on people who would have converted at $100. VEGA's randomized testing across promo campaigns collected the behavioral data to fix that. The +18% lift across promos proved the framework worked, which justified expanding it to evergreen. At Wealthfront this same principle applies to lending. We don't know yet which message, offer, or entry point converts a member into starting a loan application. The answer is in the data. The way to get the data is to randomize first, then let the model optimize.</p></div>
-    <div class="card card-green" style="padding:14px;"><p style="font-size:13px;"><strong style="color:#34d399;">The analyst's list and Braze's list are never the same list.</strong> During the VEGA rollout, Engineering bucketed 7M members but Braze delivered to significantly fewer because of unsubscribes, disabled push, and deliverability filters. The 24-hour check caught that gap, triggered backfills, and identified in-app and inbox as alternate channels for members who could no longer be reached by email or push.</p></div>
-    <div class="card card-pink" style="padding:14px;"><p style="font-size:13px;"><strong style="color:#f472b6;">Day 8 works because referred members need more runway than organic ones.</strong> The experiment data showed Day 0 had lower CVR because referred members hadn't had enough time to understand Chime yet. They were still in the signing-up-for-the-incentive mindset. Day 18 was too late. The consideration window had closed and engagement had dropped off. Day 8 hit the exact moment when the member had enough context to act but had not yet gone cold.</p></div>
+  <h2>Personalization in Practice</h2>
+  <p class="sub">An example of what a canvas could look like, segmented by behaviors, attributes, and event triggers. Not a final spec. Exact logic, thresholds, and branching confirmed with product and data on Day 1.</p>
+
+  <div style="background:var(--grad-soft);border:1px solid rgba(192,132,252,0.3);border-radius:12px;padding:10px 18px;margin-bottom:12px;">
+    <div style="font-size:9px;color:var(--lavender);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Canvas Entry Trigger</div>
+    <p style="font-size:12px;color:#fff;font-weight:600;">Event: questionnaire_completed fired. Attribute: trial_started = false. 72-hour re-engagement window opens. Member routed by questionnaire answers.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px;">
+    <div style="background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.22);border-radius:12px;padding:12px;">
+      <div style="font-size:9px;color:var(--teal);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Profile A — First-Timer</div>
+      <div class="bul"><div class="bdot" style="background:var(--teal);"></div><p style="font-size:10px;">Attribute: investing_experience = none</p></div>
+      <div class="bul"><div class="bdot" style="background:var(--teal);"></div><p style="font-size:10px;">Attribute: risk_tolerance = conservative</p></div>
+      <div class="bul"><div class="bdot" style="background:var(--teal);"></div><p style="font-size:10px;">Event trigger: no playlist_viewed in 24 hrs</p></div>
+      <div style="margin-top:8px;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.2);border-radius:8px;padding:8px;">
+        <div style="font-size:9px;color:var(--teal);font-weight:700;margin-bottom:3px;">Email sent</div>
+        <p style="font-size:10px;">"Start with $1" — deep link to trial start screen</p>
+      </div>
+    </div>
+    <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.22);border-radius:12px;padding:12px;">
+      <div style="font-size:9px;color:var(--lavender);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Profile B — Goal-Chaser</div>
+      <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;">Attribute: goal = specific_target</p></div>
+      <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;">Attribute: time_horizon = 3_to_5_years</p></div>
+      <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;">Event trigger: playlist_viewed but no deposit</p></div>
+      <div style="margin-top:8px;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:8px;padding:8px;">
+        <div style="font-size:9px;color:var(--lavender);font-weight:700;margin-bottom:3px;">Email sent</div>
+        <p style="font-size:10px;">"Your goal has a playlist" — deep link to goal playlist</p>
+      </div>
+    </div>
+    <div style="background:rgba(236,72,153,0.08);border:1px solid rgba(236,72,153,0.22);border-radius:12px;padding:12px;">
+      <div style="font-size:9px;color:#f9a8d4;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Profile C — Values Investor</div>
+      <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:10px;">Attribute: values = ESG_selected</p></div>
+      <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:10px;">Attribute: risk_tolerance = moderate_aggressive</p></div>
+      <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:10px;">Event trigger: values_playlist_viewed, no deposit</p></div>
+      <div style="margin-top:8px;background:rgba(236,72,153,0.08);border:1px solid rgba(236,72,153,0.2);border-radius:8px;padding:8px;">
+        <div style="font-size:9px;color:#f9a8d4;font-weight:700;margin-bottom:3px;">Email sent</div>
+        <p style="font-size:10px;">"Your money, your values" — deep link to values playlists</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px;">
+        <div style="font-size:9px;color:var(--dim);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;">If trial not started after email</div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;">Push Day 1: profile-matched testimonial tied to stated goal or hesitation</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;">Event: app_opened fires — in-app banner triggered with deep link to trial</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;">Push Day 2: different message type. Not another testimonial.</p></div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px;">
+        <div style="font-size:9px;color:var(--dim);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;">If trial still not started at 72 hours</div>
+        <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:10px;">Member exits canvas. Flagged for resurrection scoring.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:10px;">Win-back sequence fires if resurrection score qualifies.</p></div>
+      </div>
+    </div>
+    <div style="background:var(--grad-soft);border:1px solid rgba(192,132,252,0.25);border-radius:12px;padding:14px;">
+      <div style="font-size:9px;color:var(--lavender);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;">If trial started — Enter Phase 01</div>
+      <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;">Event: free_trial_started fires. Member exits Phase 00 canvas.</p></div>
+      <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;">Phase 01 Trial Activation canvas entry triggered. North star: first deposit made within 7 days.</p></div>
+      <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;">Segmentation carries forward. Profile A, B, and C continue to receive different messaging through Phase 01.</p></div>
+      <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;">App engagement benchmarks tracked: playlist viewed, Allie question asked, bank connection screen reached.</p></div>
+      <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(192,132,252,0.2);">
+        <p style="font-size:10px;color:var(--dim);font-style:italic;">The segmentation built in Phase 00 does not reset. It grows. The more she does, the more the canvas knows.</p>
+      </div>
+    </div>
   </div>
 </div>
 
