@@ -485,20 +485,42 @@
 
 <!-- SLIDE 9 -->
 <div class="slide" id="slide-9">
-  <h2>How I'd Apply It at Wealthfront</h2>
-  <p class="subtitle">From Chime's referral lifecycle to Wealthfront's lending expansion.</p>
-  <div style="overflow-y:auto;max-height:calc(100vh - 200px);padding-right:6px;scrollbar-width:thin;scrollbar-color:#6b46ff transparent;">
-    <div style="display:flex;flex-direction:column;gap:8px;padding-bottom:16px;">
-      <div class="card" style="padding:12px;border:1px solid rgba(107,70,255,0.5);font-size:11px;line-height:1.5;">The Mortgage Lifecycle Is Different. People apply for a mortgage once every 8 years on average. There is no retention loop. No re-engagement arc. The entire lifecycle goal collapses into one linear funnel: (1) Build awareness that Wealthfront offers lending. (2) Get the member to start an application. (3) Get them to finish it. (4) Get them to choose Wealthfront as their lender. Canvas 01 is designed to build that awareness and readiness before the member ever reaches step 2. Every other canvas flows from that foundation.</div>
-      <div class="canvas-box canvas-1" style="padding:10px;"><div class="canvas-num" style="color:#a78bfa;">01</div><h4 style="font-size:13px;margin-bottom:4px;">Pre-Lending: Home Savings Journey</h4><p style="font-size:11px;line-height:1.45;"><strong style="color:#fff;">Who:</strong> High-value members in Texas, Colorado, or California with multiple product attaches and consistent account activity. Not pushing lending yet — identifying members who are financially stable enough to start thinking about homeownership.<br><strong style="color:#fff;">What:</strong> A behavior-triggered canvas that guides members to open a dedicated home savings account separate from their existing Cash Account and Investing account. The goal is to build the down payment before they ever apply for a mortgage.<br><strong style="color:#fff;">How:</strong> Series of milestone-triggered comms — not a one-time blast. First message introduces the idea of separating home savings from other investments. Each subsequent message triggers based on how much the member has deposited into the dedicated account. Member hits a savings checkpoint, they get a congratulatory message and guidance on the next step. Final trigger: member reaches a threshold amount AND their other accounts remain healthy and untouched — that combination signals readiness for a lending conversation. As members hit savings milestones, dynamically populate their estimated lending eligibility amount in the milestone comms based on their current Wealthfront financial profile. A member with a high investing balance might see "based on your profile you could qualify for up to $500K." A member earlier in their savings journey might see "based on your profile you could qualify for up to $200K." The personalized amount makes the home feel achievable and specific to them. Geo-restricted to Texas, Colorado, and California where lending is currently available. Before building the audience confirm reachable channels — validate deliverable audience size against Engineering's cohort before launch to avoid list gap surprises.<br><strong style="color:#fff;">Why:</strong> Most lifecycle programs wait for a member to show explicit intent like visiting the lending page. This canvas builds intent by guiding members toward readiness. By the time they are ready to apply they already have a relationship with Wealthfront's home journey and money set aside for a down payment.<br><strong style="color:#fff;">Measuring:</strong> Account open rate for dedicated home savings account, deposit frequency, milestone completion rate, and handoff rate from savings canvas to lending canvas.</p></div>
-      <div class="card" style="padding:12px;border:1px solid rgba(52,211,153,0.55);">
-        <div class="label" style="color:#34d399;margin-bottom:8px;">Additional Canvas Opportunities</div>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <p style="font-size:11px;line-height:1.45;margin:0;">Rate drop alert: when mortgage rates drop below a threshold relevant to a member's savings goal, trigger a personalized notification showing what their monthly payment could look like based on their current Wealthfront balance.</p>
-          <p style="font-size:11px;line-height:1.45;margin:0;">Application re-engagement: member started a lending application but did not finish. Behavior-triggered canvas that removes friction and addresses the most common drop-off points in the application flow.</p>
-          <p style="font-size:11px;line-height:1.45;margin:0;">Cross-product handoff: member completes the home savings journey in Canvas 01 and hits their savings threshold. Automatic handoff canvas introducing the lending application as the natural next step.</p>
-        </div>
-      </div>
+  <h2>Questions I Need Answered on Day One</h2>
+  <p class="sub">Before building anything I need to understand the infrastructure, the data, the product, and what success means here.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-top:8px;">
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div class="lbl">Infrastructure</div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What is the current martech stack? What CRM platform and what events and attributes are already tracked?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there a data pipeline connecting the app to the CRM? Can canvases be triggered from behavioral events inside the app?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there a CRM or marketing automation platform in place? If not, what does the evaluation and procurement process look like?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there a dedicated sender ID or phone number for SMS so comms do not come from an unknown number?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What does creative resourcing look like? Is there a designer, or is lifecycle expected to build its own creative?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there an existing experiment framework, or does one need to be built from scratch?</p></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div class="lbl">Member Data</div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is the questionnaire data connected to the CRM? Can it be used for segmentation and personalization today?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What defines an active member versus a churned member? What is the current trial to paid conversion rate?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Where is the biggest drop-off: website to download, download to trial, trial to paid, or paid to renewal?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What did members who renewed at year one have in common behaviorally in their first 30 days versus those who canceled?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Do I have an engineering partner for cohort builds, event tracking, and deep link implementation?</p></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div class="lbl">Allie and Product</div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Can Allie conversation data be used as a behavioral trigger in lifecycle canvases? For example, if a member asks Allie about withdrawals, can that fire a proactive comm?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Can Allie conversation topics be passed as event properties to the CRM for use as behavioral triggers?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there a product roadmap item for Allie to proactively surface lifecycle moments, or is that a new concept?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What key actions inside the app correlate with first deposit and long-term retention? What does product already know about this?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there an in-app inbox or notification center today? If not, is it on the product roadmap?</p></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div class="lbl">Business Goals and Compliance</div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What are the primary, secondary, and tertiary KPIs lifecycle should ladder up to?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Given the current pace of user acquisition, what volume of new members is expected in the next 90 days, and how does that affect our ability to reach statistical significance on early experiments?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there a referral program today? If so, what incentive structure exists and what has been tested?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What is the current Trustpilot response strategy? Is lifecycle expected to contribute to reputation improvement?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Who owns legal and compliance review for lifecycle comms, and what is the typical turnaround for approval?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What is the legal review SLA for net new comms? Is there a dedicated legal partner for marketing or does it go through a general queue?</p></div>
     </div>
   </div>
 </div>
