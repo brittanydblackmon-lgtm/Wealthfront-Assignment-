@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alinea: Brittany Blackmon</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+:root{
+  --bg:#0d0a1a;--bg2:#1a0f2e;
+  --purple:#8b5cf6;--lavender:#c084fc;--pink:#ec4899;--magenta:#e879f9;
+  --grad:linear-gradient(135deg,#c084fc,#ec4899);
+  --grad-soft:linear-gradient(135deg,rgba(192,132,252,0.14),rgba(236,72,153,0.14));
+  --surface:rgba(255,255,255,0.05);--border:rgba(255,255,255,0.09);
+  --text:rgba(255,255,255,0.72);--dim:rgba(255,255,255,0.42);
+  --green:#34d399;--amber:#fbbf24;--teal:#22d3ee;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:#fff;overflow:hidden;height:100vh;}
+.deck{width:100vw;height:100vh;position:relative;}
+.slide{display:none;width:100%;height:100%;padding:58px 68px 76px;flex-direction:column;justify-content:flex-start;position:absolute;top:0;left:0;overflow:hidden;}
+.slide.active{display:flex;}
+.glow-slide::after{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(139,92,246,0.18) 0%,transparent 70%);pointer-events:none;z-index:0;}
+.glow-slide>*{position:relative;z-index:1;}
+.topbar{position:fixed;top:0;left:0;right:0;height:50px;background:rgba(13,10,26,0.96);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:100;backdrop-filter:blur(10px);}
+.logo{font-size:17px;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.pill{background:rgba(192,132,252,0.12);border:1px solid rgba(192,132,252,0.25);color:var(--lavender);padding:4px 14px;border-radius:20px;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;}
+.ctr{font-size:11px;color:var(--dim);font-weight:500;}
+.nav{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:100;align-items:center;}
+.nav button{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#fff;padding:8px 24px;border-radius:30px;cursor:pointer;font-size:12px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;transition:all .2s;}
+.nav button:hover{background:rgba(139,92,246,0.25);border-color:rgba(139,92,246,0.5);}
+.dots{display:flex;gap:5px;align-items:center;}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.18);cursor:pointer;transition:all .2s;}
+.dot.active{background:var(--lavender);width:18px;border-radius:3px;}
+h2{font-size:28px;font-weight:800;letter-spacing:-0.5px;line-height:1.15;margin-bottom:4px;}
+.sub{font-size:13px;color:var(--dim);margin-bottom:16px;font-weight:400;line-height:1.5;}
+p{font-size:12.5px;line-height:1.65;color:var(--text);}
+.lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--lavender);font-weight:700;margin-bottom:7px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;}
+.cl{border-left:2px solid var(--lavender);}
+.cp{border-left:2px solid var(--pink);}
+.cg{border-left:2px solid var(--green);}
+.ca{border-left:2px solid var(--amber);}
+.ct{border-left:2px solid var(--teal);}
+.gcard{background:var(--grad-soft);border:1px solid rgba(192,132,252,0.2);border-radius:14px;padding:14px;}
+.gt{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600;margin:2px;}
+.tl{background:rgba(192,132,252,0.14);color:var(--lavender);border:1px solid rgba(192,132,252,0.28);}
+.tp{background:rgba(236,72,153,0.12);color:#f9a8d4;border:1px solid rgba(236,72,153,0.28);}
+.tg{background:rgba(52,211,153,0.1);color:var(--green);border:1px solid rgba(52,211,153,0.25);}
+.ta{background:rgba(251,191,36,0.1);color:var(--amber);border:1px solid rgba(251,191,36,0.25);}
+.bul{display:flex;gap:8px;align-items:flex-start;margin-bottom:5px;}
+.bdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.sms-bubble{background:#2a1f3d;border-radius:14px 14px 3px 14px;padding:10px 13px;max-width:260px;font-size:11px;line-height:1.5;color:#fff;border:1px solid rgba(255,255,255,0.08);}
+.push-card{background:#1e1530;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px 12px;display:flex;gap:8px;align-items:flex-start;}
+.push-icon{width:32px;height:32px;background:var(--grad);border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;}
+.tbadge{border-radius:20px;padding:3px 10px;font-size:9px;font-weight:700;white-space:nowrap;}
+.phase-box{border-radius:14px;padding:14px;}
+strong{color:#fff;font-weight:700;}
+.cal-cell{border-radius:8px;padding:8px;font-size:9.5px;line-height:1.45;color:var(--text);}
+.cal-milestone{background:var(--grad-soft);border:1px solid rgba(192,132,252,0.3);}
+.cal-row-label{display:flex;align-items:center;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 0;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo">alinea</div>
+  <div id="tag" class="pill">Introduction</div>
+  <div class="ctr" id="ctr">1 / 11</div>
+</div>
+<div class="deck">
+
+<!-- SLIDE 1 -->
+<div class="slide glow-slide active" id="slide-1" style="align-items:center;text-align:center;justify-content:center;">
+  <div style="font-size:54px;font-weight:900;letter-spacing:-2.5px;margin-bottom:36px;line-height:1;background:linear-gradient(135deg,#fff 20%,#c084fc 60%,#ec4899 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Brittany Blackmon</div>
+  <div style="background:rgba(192,132,252,0.08);border:1px solid rgba(192,132,252,0.2);border-radius:18px;padding:26px 44px;max-width:580px;">
+    <div class="lbl" style="margin-bottom:10px;">Why Alinea. Why Now.</div>
+    <p style="font-size:14px;line-height:1.9;color:rgba(255,255,255,0.82);">She got stable. Her friend is still getting there. I built for both.<br><br>At Chime, that meant direct deposit, no more $35 fees, just a bank that finally had her back. At Alinea, it means taking what she built and making it grow.<br><br>Same mission. Different chapter. Lifecycle is the thread that connects them. That's what I'm here to build.</p>
+  </div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide" id="slide-2">
+  <h2>Before Building Anything, I Did the Research</h2>
+  <p class="sub">I downloaded the app, went through the full top-of-funnel experience, and documented every touchpoint. The product is impressive, highly engaging, and Alinea captures a strong amount of data before a lead ever connects their bank account. What happens after that capture is where the opportunity lives.</p>
+  <div class="g2" style="gap:14px;">
+    <div>
+      <div class="lbl" style="margin-bottom:10px;">Every Touchpoint I Received — Documented</div>
+      <div style="display:flex;flex-direction:column;gap:9px;">
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div class="tbadge" style="background:var(--purple);color:#fff;margin-top:2px;flex-shrink:0;">3:08 PM</div>
+          <div class="card" style="padding:10px;flex:1;">
+            <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:11px;">Email captured. Full questionnaire answered: income, goals, risk tolerance, investing experience, time horizon.</p></div>
+            <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:11px;">Rich, specific, actionable data collected before any payment or bank connection via Plaid.</p></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div class="tbadge" style="background:var(--amber);color:#000;margin-top:2px;flex-shrink:0;">3:45 PM</div>
+          <div class="card ca" style="padding:10px;flex:1;">
+            <p style="font-size:10px;font-weight:700;color:#fff;margin-bottom:6px;">First communication — 37 minutes later.</p>
+            <div class="sms-bubble"><div style="font-size:9px;color:rgba(255,255,255,0.35);margin-bottom:4px;">+1 (518) 800-2091 — Unknown Number</div>Alinea members are 4x more likely to grow their net worth. Finish signing up now!<br><br><span style="color:var(--lavender);">https://start.alinea-invest.com/Ur89c</span></div>
+            <div style="margin-top:7px;">
+              <div class="bul"><div class="bdot" style="background:var(--amber);"></div><p style="font-size:10px;color:var(--amber);">Unknown number. Shortened link. Looks like spam.</p></div>
+              <div class="bul"><div class="bdot" style="background:var(--amber);"></div><p style="font-size:10px;color:var(--amber);">Link opens app home — not a deep link to the next step in signup.</p></div>
+              <div class="bul"><div class="bdot" style="background:var(--amber);"></div><p style="font-size:10px;color:var(--amber);">Zero personalization from questionnaire data collected 37 mins earlier.</p></div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div class="tbadge" style="background:var(--pink);color:#fff;margin-top:2px;flex-shrink:0;">4:14 PM</div>
+          <div class="card cp" style="padding:10px;flex:1;">
+            <div class="push-card" style="background:rgba(255,255,255,0.04);margin-bottom:7px;"><div class="push-icon">A</div><div><div style="font-size:11px;font-weight:700;margin-bottom:2px;">Overthinking? Not required!</div><div style="font-size:10px;color:var(--text);">"I've been hesitant to invest but this has been easy and the lessons have been useful." Tap to finish setting up.... takes 2 mins!</div></div></div>
+            <div class="bul"><div class="bdot" style="background:#f9a8d4;"></div><p style="font-size:10px;color:#f9a8d4;">Social proof testimonial. Has a deep link. Still generic, still no personalization from the questionnaire data collected an hour earlier.</p></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div class="tbadge" style="background:var(--lavender);color:#000;margin-top:2px;flex-shrink:0;">6:14 PM</div>
+          <div class="card cl" style="padding:10px;flex:1;">
+            <div class="push-card" style="background:rgba(255,255,255,0.04);margin-bottom:7px;"><div class="push-icon">A</div><div><div style="font-size:11px;font-weight:700;margin-bottom:2px;">Consider this your moment</div><div style="font-size:10px;color:var(--text);">"So easy to use. I wish I had known sooner!" Tap to finish!</div></div></div>
+            <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;color:var(--lavender);">Second testimonial push 2 hours later. Same format, different quote. Testimonial loop with no variation from data already collected.</p></div>
+          </div>
+        </div>
+        <div class="card" style="padding:10px;border-left:2px solid var(--magenta);">
+          <div class="bul"><div class="bdot" style="background:var(--magenta);"></div><p style="font-size:11px;color:rgba(255,255,255,0.85);">30+ hours after email capture: still no email, no push, no SMS. Returned to the app twice. Nothing fired either time. A lead reopening the app is one of the clearest re-engagement signals available. Lifecycle missed it entirely.</p></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="lbl" style="margin-bottom:10px;">What Trustpilot and TikTok Told Me</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="card cl" style="padding:12px;">
+          <div class="lbl">Trustpilot: 2.6 out of 5 — 113 Reviews</div>
+          <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px;">
+            <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:11px;">Only 3% of negative reviews responded to.</p></div>
+            <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:11px;">Top complaints: withdrawal delays of 6 to 8 weeks, billing discrepancies, locked accounts, unresponsive support.</p></div>
+            <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:11px;">Members who have never tried to withdraw are mostly happy. Trust collapses at the withdrawal moment.</p></div>
+          </div>
+        </div>
+        <div class="card cp" style="padding:12px;">
+          <div class="lbl">TikTok — Real Comments I Found</div>
+          <div style="background:#0f0f0f;border-radius:10px;padding:10px;margin-top:8px;">
+            <div style="background:#2a2a2a;border-radius:14px;padding:4px 12px;font-size:9px;color:var(--teal);margin-bottom:8px;display:inline-block;">alinea invest honest reviews · 297 comments</div>
+            <div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+              <div style="width:28px;height:28px;border-radius:50%;background:#8b5cf6;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;">C</div>
+              <div style="flex:1;"><div style="font-size:10px;font-weight:700;color:white;">CadetClueless</div><div style="font-size:10px;color:rgba(255,255,255,0.85);line-height:1.4;margin-top:1px;">Fake! I've used alinea. It doesn't get returns like that.</div><div style="font-size:9px;color:rgba(255,255,255,0.35);margin-top:3px;">196 likes</div></div>
+            </div>
+            <div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+              <div style="width:28px;height:28px;border-radius:50%;background:#f97316;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;">y</div>
+              <div style="flex:1;"><div style="font-size:10px;font-weight:700;color:white;">yz</div><div style="font-size:10px;color:rgba(255,255,255,0.85);line-height:1.4;margin-top:1px;">it later mentions a $120 fee AFTER connecting so i opted out but it charged me before i could agree to anything..</div><div style="font-size:9px;color:rgba(255,255,255,0.35);margin-top:3px;">2 likes</div></div>
+            </div>
+            <div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+              <div style="width:28px;height:28px;border-radius:50%;background:#22c55e;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;">D</div>
+              <div style="flex:1;"><div style="font-size:10px;font-weight:700;color:white;">Drea</div><div style="font-size:10px;color:rgba(255,255,255,0.85);line-height:1.4;margin-top:1px;">Why does it want to connect to your bank account right away? I don't feel comfortable doing that.</div><div style="font-size:9px;color:rgba(255,255,255,0.35);margin-top:3px;">1 like</div></div>
+            </div>
+            <div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+              <div style="width:28px;height:28px;border-radius:50%;background:#3b82f6;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;">A</div>
+              <div style="flex:1;"><div style="font-size:10px;font-weight:700;color:white;">AWZM</div><div style="font-size:10px;color:rgba(255,255,255,0.85);line-height:1.4;margin-top:1px;">My first thought. I paid rent today and had 30 dollars left for the week.</div><div style="font-size:9px;color:rgba(255,255,255,0.35);margin-top:3px;">2 likes</div></div>
+            </div>
+            <div style="display:flex;gap:8px;padding:6px 0;">
+              <div style="width:28px;height:28px;border-radius:50%;background:var(--pink);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;">C</div>
+              <div style="flex:1;"><div style="font-size:10px;font-weight:700;color:white;">Chasity</div><div style="font-size:10px;color:rgba(255,255,255,0.85);line-height:1.4;margin-top:1px;">Imagine having an extra $200 dollars each month after bills</div><div style="font-size:9px;color:rgba(255,255,255,0.35);margin-top:3px;">355 likes</div></div>
+            </div>
+          </div>
+          <p style="font-size:10px;color:var(--dim);margin-top:8px;font-style:italic;">The 355-like comment shows what the audience wants. Every other comment shows what lifecycle needs to fix before they get there.</p>
+        </div>
+        <div style="background:var(--grad-soft);border:1px solid rgba(192,132,252,0.25);border-radius:12px;padding:14px;">
+          <p style="font-size:13px;font-weight:700;color:#fff;line-height:1.6;margin-bottom:4px;">The data to build something great already exists.</p>
+          <p style="font-size:12px;color:var(--text);line-height:1.6;">Alinea captures more about a lead before signup than most companies ever collect. Lifecycle is what activates it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide" id="slide-3">
+  <h2>The Investor Maturity Curve</h2>
+  <p class="sub">Five phases. One Predictive Intelligence Layer running alongside. Built to move a member from first email to lifelong investor.</p>
+  <div style="display:flex;gap:5px;align-items:stretch;margin-top:10px;">
+    <div style="flex:1;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.22);border-radius:14px;padding:11px;">
+      <div style="font-size:20px;font-weight:900;color:var(--teal);">00</div>
+      <div style="font-size:11px;font-weight:800;margin:3px 0;color:#fff;">Pre-Trial</div>
+      <div style="font-size:8px;color:var(--teal);font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">24 to 72 hrs</div>
+      <div style="display:flex;flex-direction:column;gap:3px;">
+        <div class="bul"><div class="bdot" style="background:var(--teal);"></div><p style="font-size:10px;">North star: free trial started.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--teal);"></div><p style="font-size:10px;">Highest intent moment. Questionnaire data activates immediately.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--teal);"></div><p style="font-size:10px;">Deep links on every CTA. No extra steps.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--teal);"></div><p style="font-size:10px;">SMS A/B experiment: does a personalized nudge in the pre-trial window improve trial conversion? Copy and timing TBD based on experiment design.</p></div>
+      </div>
+      <div style="margin-top:6px;"><span class="tag ct" style="font-size:9px;">Email</span><span class="tag ct" style="font-size:9px;">Push</span><span class="tag ct" style="font-size:9px;">SMS (A/B Experiment)</span></div>
+    </div>
+    <div style="display:flex;align-items:center;color:var(--dim);font-size:16px;flex-shrink:0;">→</div>
+    <div style="flex:1;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.22);border-radius:14px;padding:11px;">
+      <div style="font-size:20px;font-weight:900;" class="gt">01</div>
+      <div style="font-size:11px;font-weight:800;margin:3px 0;color:#fff;">Trial Activation</div>
+      <div style="font-size:8px;color:var(--lavender);font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">7 days</div>
+      <div style="display:flex;flex-direction:column;gap:3px;">
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;">North star: first deposit made.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;">App engagement benchmarks within 7 days: playlist viewed, Allie question asked, bank connection screen reached, app opened more than once. Exact thresholds TBD with product.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:10px;">The barrier is not money. It is belief. Remove it before it removes her.</p></div>
+      </div>
+      <div style="margin-top:6px;"><span class="tag tl" style="font-size:9px;">Email</span><span class="tag tl" style="font-size:9px;">Push</span><span class="tag tl" style="font-size:9px;">In-App</span></div>
+    </div>
+    <div style="display:flex;align-items:center;color:var(--dim);font-size:16px;flex-shrink:0;">→</div>
+    <div style="flex:1;background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);border-radius:14px;padding:11px;">
+      <div style="font-size:20px;font-weight:900;color:var(--green);">02</div>
+      <div style="font-size:11px;font-weight:800;margin:3px 0;color:#fff;">Onboarding</div>
+      <div style="font-size:8px;color:var(--green);font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">30 days</div>
+      <div style="display:flex;flex-direction:column;gap:3px;">
+        <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:10px;">North star: recurring auto-invest activated.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:10px;">First 30 days as a paying member. Go hard. Prove the $120 is worth it before doubt sets in.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:10px;">Education, milestone moments, values-based content tied to her playlist.</p></div>
+      </div>
+      <div style="margin-top:6px;"><span class="tag tg" style="font-size:9px;">Email</span><span class="tag tg" style="font-size:9px;">Push</span><span class="tag tg" style="font-size:9px;">In-App</span></div>
+    </div>
+    <div style="display:flex;align-items:center;color:var(--dim);font-size:16px;flex-shrink:0;">→</div>
+    <div style="flex:1;background:rgba(236,72,153,0.08);border:1px solid rgba(236,72,153,0.2);border-radius:14px;padding:11px;">
+      <div style="font-size:20px;font-weight:900;color:var(--pink);">03</div>
+      <div style="font-size:11px;font-weight:800;margin:3px 0;color:#fff;">Retention</div>
+      <div style="font-size:8px;color:#f9a8d4;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">Day 31+</div>
+      <div style="display:flex;flex-direction:column;gap:3px;">
+        <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:10px;">North star: Day 30, Day 60, and Day 90 engagement benchmarks hit. These are the checkpoints that predict annual renewal.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:10px;">Day 30: auto-invest active, first recurring deposit scheduled. Onboarding to retention transition confirmed.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:10px;">Day 60: two or more deposits made, Allie used at least once, playlist engagement active.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:10px;">Day 90: recurring deposit cadence established, portfolio milestone hit, at least one educational piece engaged.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:10px;">Month 9 to 10: pre-renewal push. Show her exactly what her $120 generated. Go hard before the ask.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:10px;color:#f9a8d4;font-weight:600;">Primary threat: silent churn. Members who keep the app but stop depositing are one bad experience away from canceling.</p></div>
+      </div>
+      <div style="margin-top:6px;"><span class="tag tp" style="font-size:9px;">Email</span><span class="tag tp" style="font-size:9px;">Push</span><span class="tag tp" style="font-size:9px;">In-App</span></div>
+    </div>
+    <div style="display:flex;align-items:center;color:var(--dim);font-size:16px;flex-shrink:0;">→</div>
+    <div style="flex:1;background:rgba(251,191,36,0.07);border:1px solid rgba(251,191,36,0.2);border-radius:14px;padding:11px;">
+      <div style="font-size:20px;font-weight:900;color:var(--amber);">04</div>
+      <div style="font-size:11px;font-weight:800;margin:3px 0;color:#fff;">Advocacy</div>
+      <div style="font-size:8px;color:var(--amber);font-weight:700;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;">Year 1+</div>
+      <div style="display:flex;flex-direction:column;gap:3px;">
+        <div class="bul"><div class="bdot" style="background:var(--amber);"></div><p style="font-size:10px;">North star: referrals sent + account growth milestones.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--amber);"></div><p style="font-size:10px;">Variable incentives via VEGA-style randomized bucketing.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--amber);"></div><p style="font-size:10px;">Messaging ages with the member as accounts and life stages grow.</p></div>
+      </div>
+      <div style="margin-top:6px;"><span class="tag ta" style="font-size:9px;">Email</span><span class="tag ta" style="font-size:9px;">Push</span></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:3fr 2fr;gap:10px;margin-top:10px;">
+    <div class="gcard" style="padding:12px;">
+      <div class="lbl" style="margin-bottom:8px;">Predictive Intelligence Layer — Running Alongside Every Phase</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:8px;"><div style="font-size:10px;font-weight:700;color:var(--lavender);margin-bottom:3px;">Churn Propensity</div><p style="font-size:10px;">Predicts who is likely to cancel before they decide to. Proactive comms fire first.</p></div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:8px;"><div style="font-size:10px;font-weight:700;color:var(--green);margin-bottom:3px;">Referral Propensity</div><p style="font-size:10px;">Predicts who will refer and how much incentive actually changes their behavior.</p></div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:8px;"><div style="font-size:10px;font-weight:700;color:var(--pink);margin-bottom:3px;">Resurrection Scoring</div><p style="font-size:10px;">For lapsed members: who is worth the spend to win back and when.</p></div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:8px;"><div style="font-size:10px;font-weight:700;color:var(--amber);margin-bottom:3px;">Send-Time Optimization</div><p style="font-size:10px;">When each member is most likely to open and act. Models improve as data accumulates.</p></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div class="card cp" style="padding:10px;flex:1;"><div style="font-size:9px;color:#f9a8d4;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;">Win-Back / Resurrection</div><p style="font-size:10px;">For members who cancel: triggered win-back sequence based on resurrection score. Message and offer vary by lapse reason and predicted likelihood to return.</p></div>
+      <div class="card ca" style="padding:10px;flex:1;"><div style="font-size:9px;color:var(--amber);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;">Aging With the Platform</div><p style="font-size:10px;">A member who joined at 22 should not get the same message at 30. As accounts and life stages grow, messaging evolves automatically.</p></div>
+    </div>
+  </div>
+  <div style="margin-top:6px;font-size:10px;color:var(--dim);">* SMS for transactional communications only.</div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide" id="slide-4">
+  <h2>3 to 6 Month Roadmap</h2>
+  <p class="sub">What matters most, in the right order. * = engineering dependent. ** = requires data from prior months.</p>
+  <div class="g3" style="gap:12px;margin-top:8px;">
+    <div class="phase-box" style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);">
+      <div style="font-size:10px;color:var(--lavender);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;">Month 1 — Foundation</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;color:#fff;font-weight:600;">Audit martech stack, data pipeline, events and attributes in CRM.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;color:#fff;font-weight:600;">Build all transactional comms using questionnaire data. Withdrawal, deposit, fee, account updates.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;color:#fff;font-weight:600;">Personalized onboarding email sequence segmented by questionnaire data.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">SMS number save as first touchpoint. Deep links on all channels.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">Baseline measurement dashboard. Define active, churned, and converted benchmarks.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">Define KPIs with founders: primary, secondary, tertiary.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">Launch 1 to 2 quick-win test campaigns to begin collecting behavioral data.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">Legal and compliance review process established before first send. Every net new comm reviewed before launch, not after.</p></div>
+      </div>
+    </div>
+    <div class="phase-box" style="background:rgba(52,211,153,0.07);border:1px solid rgba(52,211,153,0.2);">
+      <div style="font-size:10px;color:var(--green);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;">Month 2 to 3 — Launch and Test</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:12px;color:#fff;font-weight:600;">Re-engagement canvases triggered by app open frequency and investment inactivity.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:12px;color:#fff;font-weight:600;">First referral program test: variable incentives randomized across equal buckets.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:12px;color:#fff;font-weight:600;">Trustpilot API embedded in happy-member comms to drive review volume.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:12px;">Churn prediction triggers built before members consciously decide to cancel.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:12px;">Segmentation experiments: age group, acquisition source, stated goal.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:12px;">Scope in-app inbox notification capability with engineering.*</p></div>
+      </div>
+    </div>
+    <div class="phase-box" style="background:rgba(232,121,249,0.07);border:1px solid rgba(232,121,249,0.2);">
+      <div style="font-size:10px;color:var(--magenta);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px;">Month 4 to 6 — Optimize and Scale</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div class="bul"><div class="bdot" style="background:var(--magenta);"></div><p style="font-size:12px;color:#fff;font-weight:600;">Churn propensity model v1 — predict who is likely to cancel before they decide to.**</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--magenta);"></div><p style="font-size:12px;color:#fff;font-weight:600;">Referral propensity model v1 — who refers and how much incentive changes behavior.**</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--magenta);"></div><p style="font-size:12px;color:#fff;font-weight:600;">Refined referral program with VEGA-style variable incentive framework.</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--magenta);"></div><p style="font-size:12px;">Scale personalization: Allie conversations, playlist choices, deposit patterns.**</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--magenta);"></div><p style="font-size:12px;">Resurrection scoring v1 for lapsed members.**</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--magenta);"></div><p style="font-size:12px;">In-app inbox launch if scoped and approved in Month 3.*</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--magenta);"></div><p style="font-size:12px;">6-month impact report: trial conversion, retention, referral rate, support intake reduction, Trustpilot improvement.</p></div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;">
+    <div style="font-size:9px;color:var(--dim);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;">Beyond the Core Roadmap — Expansion Ideas</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;">
+      <span style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.2);color:var(--lavender);padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;">Community savings challenges</span>
+      <span style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.2);color:var(--lavender);padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;">Seasonal moment campaigns (New Year, Tax Season)</span>
+      <span style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.2);color:var(--lavender);padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;">Allie-triggered lifecycle (question asked, relevant content sent)</span>
+      <span style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.2);color:var(--lavender);padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;">Values-based portfolio milestone celebrations</span>
+      <span style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.2);color:var(--lavender);padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;">Milestone celebration sequence: first deposit, first $100, first 30 days</span>
+      <span style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.2);color:var(--lavender);padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;">End of year wrap: Spotify Wrapped style — total deposited, portfolio growth, goals tracked, fires before renewal</span>
+      <span style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.2);color:var(--lavender);padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;">Monthly stats email — portfolio performance, what Allie rebalanced, how she is tracking vs goals</span>
+    </div>
+  </div>
+  <div style="margin-top:8px;font-size:10px;color:var(--dim);">* Dependent on engineering capacity. ** Requires behavioral data from prior months.</div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide" id="slide-5">
+  <h2>Month by Month: June through November</h2>
+  <p class="sub">What gets built, when, and in what order. ⭐ = key milestone. * = engineering dependent. ** = data from prior months required.</p>
+  <div style="margin-top:10px;">
+    <div style="display:grid;grid-template-columns:110px repeat(6,1fr);gap:5px;">
+      <div></div>
+      <div style="background:var(--grad);border-radius:8px;padding:8px;text-align:center;font-weight:800;font-size:12px;">June</div>
+      <div style="background:var(--grad);border-radius:8px;padding:8px;text-align:center;font-weight:800;font-size:12px;">July</div>
+      <div style="background:var(--grad);border-radius:8px;padding:8px;text-align:center;font-weight:800;font-size:12px;">August</div>
+      <div style="background:var(--grad);border-radius:8px;padding:8px;text-align:center;font-weight:800;font-size:12px;">September</div>
+      <div style="background:var(--grad);border-radius:8px;padding:8px;text-align:center;font-weight:800;font-size:12px;">October</div>
+      <div style="background:var(--grad);border-radius:8px;padding:8px;text-align:center;font-weight:800;font-size:12px;">November</div>
+      <div class="cal-row-label" style="color:var(--teal);font-size:9px;line-height:1.3;">Infrastructure</div>
+      <div class="cal-cell cal-milestone" style="border-left:2px solid var(--teal);font-size:10px;padding:10px;">CRM audit. Events mapped. Deep links live. ⭐</div>
+      <div class="cal-cell" style="background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.15);border-radius:8px;padding:10px;font-size:10px;">Questionnaire data connected to CRM. Segmentation set.</div>
+      <div class="cal-cell" style="background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.15);border-radius:8px;padding:10px;font-size:10px;">In-app inbox scoped with engineering.*</div>
+      <div class="cal-cell" style="background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.15);border-radius:8px;padding:10px;font-size:10px;">In-app inbox development begins.*</div>
+      <div class="cal-cell" style="background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.15);border-radius:8px;padding:10px;font-size:10px;">In-app inbox QA and testing.*</div>
+      <div class="cal-cell cal-milestone" style="border-left:2px solid var(--teal);font-size:10px;padding:10px;">In-app inbox launch.* ⭐</div>
+      <div class="cal-row-label" style="color:var(--lavender);font-size:9px;line-height:1.3;">Transactional Comms</div>
+      <div class="cal-cell cal-milestone" style="border-left:2px solid var(--lavender);font-size:10px;padding:10px;">All transactional comms live. SMS number save. ⭐</div>
+      <div class="cal-cell" style="background:rgba(192,132,252,0.06);border:1px solid rgba(192,132,252,0.15);border-radius:8px;padding:10px;font-size:10px;">Trustpilot API embedded in happy-member comms.</div>
+      <div class="cal-cell" style="background:rgba(192,132,252,0.06);border:1px solid rgba(192,132,252,0.15);border-radius:8px;padding:10px;font-size:10px;">Renewal reminder sequence built.</div>
+      <div class="cal-cell" style="background:rgba(192,132,252,0.06);border:1px solid rgba(192,132,252,0.15);border-radius:8px;padding:10px;font-size:10px;">A/B testing all transactional comms.</div>
+      <div class="cal-cell" style="background:rgba(192,132,252,0.06);border:1px solid rgba(192,132,252,0.15);border-radius:8px;padding:10px;font-size:10px;">Ongoing optimization.</div>
+      <div class="cal-cell" style="background:rgba(192,132,252,0.06);border:1px solid rgba(192,132,252,0.15);border-radius:8px;padding:10px;font-size:10px;">6-month full transactional audit.</div>
+      <div class="cal-row-label" style="color:var(--purple);font-size:9px;line-height:1.3;">Marketing Campaigns</div>
+      <div class="cal-cell cal-milestone" style="border-left:2px solid var(--purple);font-size:10px;padding:10px;">Personalized onboarding sequence live. ⭐</div>
+      <div class="cal-cell" style="background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:8px;padding:10px;font-size:10px;">Trial activation canvas. Re-engagement v1.</div>
+      <div class="cal-cell" style="background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:8px;padding:10px;font-size:10px;">Milestone sequence. Churn prevention canvas.</div>
+      <div class="cal-cell cal-milestone" style="border-left:2px solid var(--purple);font-size:10px;padding:10px;">Referral program launch. Win-back v1. ⭐</div>
+      <div class="cal-cell" style="background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:8px;padding:10px;font-size:10px;">Full optimization pass on active canvases.</div>
+      <div class="cal-cell cal-milestone" style="border-left:2px solid var(--purple);font-size:10px;padding:10px;">Program review. Founders report. ⭐</div>
+      <div class="cal-row-label" style="color:var(--green);font-size:9px;line-height:1.3;">Experiments</div>
+      <div class="cal-cell" style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:8px;padding:10px;font-size:10px;">Framework defined. Thresholds set. Test 1 live.</div>
+      <div class="cal-cell" style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:8px;padding:10px;font-size:10px;">Trial-to-paid test. Onboarding personalization test.</div>
+      <div class="cal-cell" style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:8px;padding:10px;font-size:10px;">Referral incentive test. Randomized, 3 variants.</div>
+      <div class="cal-cell" style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:8px;padding:10px;font-size:10px;">Send-time optimization test.</div>
+      <div class="cal-cell" style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:8px;padding:10px;font-size:10px;">Churn intervention offer test.</div>
+      <div class="cal-cell cal-milestone" style="border-left:2px solid var(--green);font-size:10px;padding:10px;">All learnings built into evergreen. ⭐</div>
+      <div class="cal-row-label" style="color:var(--pink);font-size:9px;line-height:1.3;">Predictive Intelligence Layer</div>
+      <div class="cal-cell" style="background:rgba(236,72,153,0.06);border:1px solid rgba(236,72,153,0.15);border-radius:8px;padding:10px;font-size:10px;">Signal collection begins. Data requirements defined.</div>
+      <div class="cal-cell" style="background:rgba(236,72,153,0.06);border:1px solid rgba(236,72,153,0.15);border-radius:8px;padding:10px;font-size:10px;">First cohort analysis. Churn signals identified.</div>
+      <div class="cal-cell cal-milestone" style="border-left:2px solid var(--pink);font-size:10px;padding:10px;">Churn propensity model v1.** ⭐</div>
+      <div class="cal-cell" style="background:rgba(236,72,153,0.06);border:1px solid rgba(236,72,153,0.15);border-radius:8px;padding:10px;font-size:10px;">Referral propensity model v1.**</div>
+      <div class="cal-cell" style="background:rgba(236,72,153,0.06);border:1px solid rgba(236,72,153,0.15);border-radius:8px;padding:10px;font-size:10px;">Resurrection scoring. Variable incentive model.**</div>
+      <div class="cal-cell cal-milestone" style="border-left:2px solid var(--pink);font-size:10px;padding:10px;">T-learner model trained on 5 months of data.** ⭐</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6 -->
+<div class="slide" id="slide-6">
+  <h2>I've Built This Before. Here's the Proof.</h2>
+  <p class="sub">Every gap in the research has a corresponding program I've already run. These are not ideas. They are precedents.</p>
+  <div class="g2" style="gap:12px;margin-top:8px;">
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="card cl" style="padding:13px;">
+        <div class="lbl">VEGA Applied to Referrals</div>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px;">
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">At Chime: VEGA dynamically populated variable incentive amounts across referral comms. Proven in promos, then scaled to evergreen across 23.5M members.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">At Alinea: same framework tests variable referral incentives credited to the investment account.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">Randomize first, collect clean data, then let the model optimize spend where it actually changes behavior.</p></div>
+        </div>
+      </div>
+      <div class="card cg" style="padding:13px;">
+        <div class="lbl">Churn Propensity Model</div>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px;">
+          <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:12px;">At Chime: predictive modeling identified members most likely to set up direct deposit.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:12px;">At Alinea: same methodology identifies members most likely to cancel before renewal. Signals: app open frequency, investment inactivity, Allie conversation drop-off.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:12px;">Proactive comms fire before the member consciously decides to leave.</p></div>
+        </div>
+      </div>
+      <div class="card ca" style="padding:13px;">
+        <div class="lbl">Proactive Trust Infrastructure + Trustpilot API</div>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px;">
+          <div class="bul"><div class="bdot" style="background:var(--amber);"></div><p style="font-size:12px;"><strong>The problem:</strong> Trustpilot complaints are a lifecycle problem. Members feel blindsided by withdrawals and fees because nobody set expectations.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--amber);"></div><p style="font-size:12px;"><strong>The Trustpilot API:</strong> At Chime, built Trustpilot's Create Invitation API into Braze email CTAs. Generates a unique member-specific review URL at send time. No member data shared with Trustpilot unless they actually leave a review.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--amber);"></div><p style="font-size:12px;"><strong>Why it works:</strong> Directs member to the review flow, not the landing page. At Chime: 3.8 targeting 4+. At Alinea: same approach to raise 2.6 toward 4+.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--amber);"></div><p style="font-size:12px;"><strong>Withdrawal Anxiety Sequence:</strong> Multi-step Money Map triggered the moment a withdrawal is initiated. Day 1: funds being settled. Day 2: funds on the way with expected date. Eliminates the number one support ticket type and the number one driver of 1-star reviews.</p></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="card cl" style="padding:13px;">
+        <div class="lbl">In-App Inbox and Notifications</div>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px;">
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">At Chime: inbox notifications gave members a persistent message center inside the app.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">At Alinea: members revisit Allie conversations and receive account updates without leaving the product.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">In-app banners for very important moments — pop up on app open, dismissible. Same urgency as SMS but inside the product where they already are.</p></div>
+        </div>
+      </div>
+      <div class="card cp" style="padding:13px;">
+        <div class="lbl">AI Models Across the Lifecycle</div>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px;">
+          <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:12px;"><strong>Referral propensity:</strong> who is most likely to refer and how much incentive they need.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:12px;"><strong>Churn propensity:</strong> who is most likely to cancel before the decision is made.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:12px;"><strong>Send-time optimization:</strong> when each member is most likely to open and act.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:12px;"><strong>Resurrection scoring:</strong> for lapsed members, which ones are worth the spend to win back.</p></div>
+        </div>
+      </div>
+      <div class="card cg" style="padding:13px;">
+        <div class="lbl">Lifecycle Grows With the Member</div>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px;">
+          <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:12px;">Members who joined at 22 should not receive the same messaging at 30.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:12px;">Age-based segmentation and account growth milestones trigger messaging shifts automatically.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:12px;">The app should never feel like it outgrew the member or the member outgrew the app.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;">
+    <div style="font-size:9px;color:var(--dim);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;">What I'd Build First — Based on What I've Already Proven Works</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;">
+      <span style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.2);color:var(--lavender);padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;">The Receipt: When Allie rebalances, show exactly what changed and why</span>
+      <span style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.2);color:var(--lavender);padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;">Plaid Trust Bridge: Email explaining what Plaid is and why it's safe — sent before the app ever asks to connect</span>
+      <span style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.2);color:var(--lavender);padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;">Learning-to-Earning: Complete a lesson, earn a $5 investment credit — justifies the $120 subscription</span>
+      <span style="background:rgba(192,132,252,0.1);border:1px solid rgba(192,132,252,0.2);color:var(--lavender);padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;">Value Proof: Pre-renewal email showing exactly what the $120 generated in returns this year</span>
+    </div>
+    <p style="font-size:10px;color:var(--dim);margin-top:8px;">All programs built with legal and compliance review baked into the launch process. Fee disclosures, investment disclaimers, SMS opt-in requirements, and withdrawal language reviewed before any comm goes live.</p>
+  </div>
+</div>
+
+<!-- SLIDE 7 -->
+<div class="slide" id="slide-7">
+  <h2>Work Sample: VEGA and the Urgency Offer</h2>
+  <p class="sub">How dynamic offer personalization works at Chime — and how the same framework applies at Alinea.</p>
+  <div class="g2" style="gap:14px;margin-top:4px;">
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="card cl" style="padding:13px;">
+        <div class="lbl">What VEGA Is</div>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px;">
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">VEGA is a dynamic offer attribution framework. It populates a personalized incentive amount into any comm across any channel.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;"><strong>First attempt:</strong> ML model gave the highest offers to members already most likely to refer. The spend was backwards.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;"><strong>The pivot:</strong> Moved to randomized bucketing. 25% of members each received $100, $125, $150, or $200. Clean data, no prediction bias.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;"><strong>The result:</strong> $125 drove +18% lift in 30-day direct deposit conversions. All variants positive ROI. Scaled to 23.5M members.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;"><strong>What's next:</strong> A T-learner uplift model now assigns the right offer per member automatically.</p></div>
+        </div>
+      </div>
+      <div class="gcard" style="padding:13px;">
+        <div class="lbl" style="margin-bottom:8px;">How This Applies at Alinea</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">Apply randomized bucketing to referral incentives credited to the investment account.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">Collect clean behavioral data on who refers, when, and for how much. Let the data build the Predictive Intelligence Layer.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">Same principle for churn: randomize retention offers, find the threshold that changes behavior, then optimize with a model.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:12px;">Randomize first. Prove it works. Then scale it.</p></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="lbl" style="margin-bottom:10px;">The Urgency Offer — VEGA in Production</div>
+      <div style="background:#f3f4f6;border-radius:12px;padding:4px;display:flex;justify-content:center;overflow:hidden;">
+        <section style="width:100%;background:#eef8f1;font-family:Arial,Helvetica,sans-serif;color:#111;margin:0;overflow:hidden;border-radius:10px;">
+          <div style="padding:16px 14px 10px;">
+            <div style="font-size:20px;font-weight:900;color:#1DB954;letter-spacing:-1px;margin-bottom:14px;">chime</div>
+            <h1 style="font-size:22px;line-height:1.05;font-weight:900;letter-spacing:-0.8px;margin:0 0 10px;color:#111;">Like a finder's fee,<br>for friends.</h1>
+            <p style="font-size:11px;line-height:1.45;font-weight:500;color:#27342d;margin:0 0 12px;">Special offer: for the next 24 hours, you can earn <strong>[$125]</strong> for each friend you refer to Chime who receives a qualifying direct deposit of $200+.</p>
+            <a href="#" style="display:block;background:#1DB954;color:#06120a;text-decoration:none;text-align:center;font-size:12px;font-weight:900;padding:10px 14px;border-radius:6px;margin:0 0 14px;">Invite friends</a>
+            <div style="height:140px;background:linear-gradient(135deg,#0c2418 0%,#193927 45%,#23362c 100%);border-radius:10px;position:relative;overflow:hidden;margin-bottom:14px;">
+              <div style="position:absolute;top:10px;right:10px;width:48px;height:48px;background:#ffe330;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;color:#111;font-size:9px;font-weight:900;line-height:1.2;transform:rotate(-10deg);">Limited<br>time!</div>
+              <div style="position:absolute;left:16px;bottom:0;width:52px;height:100px;background:#191919;border-radius:26px 26px 0 0;"></div>
+              <div style="position:absolute;left:30px;top:38px;width:26px;height:26px;background:#3d2c20;border-radius:50%;"></div>
+              <div style="position:absolute;left:86px;bottom:0;width:72px;height:112px;background:#f5f1e6;border-radius:36px 36px 0 0;"></div>
+              <div style="position:absolute;left:106px;top:30px;width:32px;height:32px;background:#7a4c2e;border-radius:50%;"></div>
+              <div style="position:absolute;left:172px;bottom:0;width:56px;height:90px;background:#2a2a2a;border-radius:28px 28px 0 0;"></div>
+              <div style="position:absolute;left:184px;top:44px;width:24px;height:24px;background:#c8a882;border-radius:50%;"></div>
+              <div style="position:absolute;left:90px;top:76px;width:48px;height:32px;background:#0d1117;border-radius:7px;transform:rotate(4deg);box-shadow:0 4px 10px rgba(0,0,0,.3);">
+                <div style="width:28px;height:4px;background:#1DB954;border-radius:5px;margin:8px auto 3px;"></div>
+                <div style="width:36px;height:3px;background:#39443e;border-radius:5px;margin:0 auto;"></div>
+              </div>
+              <div style="position:absolute;top:14px;left:130px;font-size:14px;color:#ffc400;">+</div>
+              <div style="position:absolute;top:32px;left:62px;font-size:11px;color:#ffc400;">+</div>
+            </div>
+            <h2 style="font-size:14px;font-weight:900;margin:0 0 8px;color:#111;">Here's how it works.</h2>
+            <ol style="margin:0 0 10px 16px;padding:0;color:#111;font-size:10px;line-height:1.5;font-weight:500;">
+              <li style="margin-bottom:4px;">Invite your friends to Chime.</li>
+              <li style="margin-bottom:4px;">Make sure they sign up in the next 24 hours.</li>
+              <li style="margin-bottom:4px;">Once your friend sets up a $200+ qualifying direct deposit and activates their Chime card, you both get paid.</li>
+            </ol>
+          </div>
+          <div style="padding:8px 14px;background:#eef8f1;color:#111;font-size:10px;">
+            <div style="color:#1DB954;font-size:10px;font-weight:700;margin-bottom:3px;">from Chime</div>
+            <div>Questions? We're here to help.</div>
+          </div>
+          <div style="background:#07130d;color:white;padding:12px 18px 16px;">
+            <div style="font-size:14px;font-weight:900;color:white;margin-bottom:6px;">chime</div>
+            <div style="font-size:9px;color:#a6b5ac;">2026 Chime Financial, Inc. All rights reserved.</div>
+          </div>
+        </section>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-top:8px;">
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:14px;font-weight:800;color:var(--text);">$100</div><div style="font-size:9px;color:var(--dim);margin-top:2px;">Variant A</div></div>
+        <div style="background:rgba(192,132,252,0.15);border:1px solid rgba(192,132,252,0.4);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:14px;font-weight:800;" class="gt">$125</div><div style="font-size:9px;color:var(--lavender);margin-top:2px;">Winner +18%</div></div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:14px;font-weight:800;color:var(--text);">$150</div><div style="font-size:9px;color:var(--dim);margin-top:2px;">Variant C</div></div>
+        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:14px;font-weight:800;color:var(--text);">$200</div><div style="font-size:9px;color:var(--dim);margin-top:2px;">Variant D</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8 -->
+<div class="slide" id="slide-8">
+  <h2>Personalization in Practice</h2>
+  <p class="sub">An example of what a canvas could look like, segmented by behaviors, attributes, and event triggers. Not a final spec. Exact logic, thresholds, and branching confirmed with product and data on Day 1.</p>
+
+  <!-- Branching flow diagram -->
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0;margin-bottom:10px;">
+
+    <!-- Trigger -->
+    <div style="background:var(--grad-soft);border:1px solid rgba(192,132,252,0.3);border-radius:10px;padding:8px 20px;text-align:center;width:420px;">
+      <div style="font-size:9px;color:var(--lavender);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;">Canvas Entry Trigger</div>
+      <p style="font-size:10px;color:#fff;font-weight:600;">Event: questionnaire_completed. Attribute: trial_started = false. Member routed by questionnaire answers.</p>
+    </div>
+
+    <!-- Split line -->
+    <div style="width:1px;height:14px;background:var(--dim);"></div>
+    <div style="width:560px;height:1px;background:var(--dim);"></div>
+    <div style="display:flex;width:560px;justify-content:space-between;">
+      <div style="width:1px;height:12px;background:var(--dim);margin-left:93px;"></div>
+      <div style="width:1px;height:12px;background:var(--dim);"></div>
+      <div style="width:1px;height:12px;background:var(--dim);margin-right:93px;"></div>
+    </div>
+
+    <!-- Profile row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;width:100%;margin-bottom:0;">
+      <div style="background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.22);border-radius:10px;padding:9px;">
+        <div style="font-size:9px;color:var(--teal);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Profile A — First-Timer</div>
+        <div class="bul"><div class="bdot" style="background:var(--teal);"></div><p style="font-size:9px;">Attribute: investing_experience = none</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--teal);"></div><p style="font-size:9px;">Attribute: risk_tolerance = conservative</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--teal);"></div><p style="font-size:9px;">Event: no playlist_viewed in 24 hrs</p></div>
+        <div style="margin-top:6px;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.2);border-radius:6px;padding:6px;">
+          <div style="font-size:9px;color:var(--teal);font-weight:700;margin-bottom:2px;">Email sent</div>
+          <p style="font-size:9px;">"Start with $1" — deep link to trial screen</p>
+        </div>
+      </div>
+      <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.22);border-radius:10px;padding:9px;">
+        <div style="font-size:9px;color:var(--lavender);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Profile B — Goal-Chaser</div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:9px;">Attribute: goal = specific_target</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:9px;">Attribute: time_horizon = 3_to_5_years</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:9px;">Event: playlist_viewed but no deposit</p></div>
+        <div style="margin-top:6px;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:6px;padding:6px;">
+          <div style="font-size:9px;color:var(--lavender);font-weight:700;margin-bottom:2px;">Email sent</div>
+          <p style="font-size:9px;">"Your goal has a playlist" — deep link to goal playlist</p>
+        </div>
+      </div>
+      <div style="background:rgba(236,72,153,0.08);border:1px solid rgba(236,72,153,0.22);border-radius:10px;padding:9px;">
+        <div style="font-size:9px;color:#f9a8d4;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Profile C — Values Investor</div>
+        <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:9px;">Attribute: values = ESG_selected</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:9px;">Attribute: risk_tolerance = moderate_aggressive</p></div>
+        <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:9px;">Event: values_playlist_viewed, no deposit</p></div>
+        <div style="margin-top:6px;background:rgba(236,72,153,0.08);border:1px solid rgba(236,72,153,0.2);border-radius:6px;padding:6px;">
+          <div style="font-size:9px;color:#f9a8d4;font-weight:700;margin-bottom:2px;">Email sent</div>
+          <p style="font-size:9px;">"Your money, your values" — deep link to values playlists</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Converge line -->
+    <div style="width:1px;height:12px;background:var(--dim);"></div>
+
+    <!-- Decision 1 -->
+    <div style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.3);border-radius:10px;padding:8px 20px;text-align:center;width:380px;">
+      <div style="font-size:9px;color:var(--lavender);font-weight:700;margin-bottom:2px;">Did she start the free trial within 72 hours?</div>
+    </div>
+
+    <!-- Yes / No row -->
+    <div style="display:flex;gap:16px;align-items:flex-start;margin-top:8px;width:100%;">
+      <!-- NO branch -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+        <div style="font-size:9px;color:var(--dim);font-weight:700;text-align:center;">No</div>
+        <div style="background:rgba(236,72,153,0.08);border:1px solid rgba(236,72,153,0.2);border-radius:10px;padding:9px;">
+          <div style="font-size:9px;color:#f9a8d4;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Re-engagement sequence</div>
+          <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:9px;">Push Day 1: profile-matched testimonial tied to stated goal</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:9px;">Event: app_opened fires — in-app banner with deep link to trial</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--pink);"></div><p style="font-size:9px;">Push Day 2: different message type. Not another testimonial.</p></div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:9px;">
+          <div style="font-size:9px;color:var(--dim);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Still no trial at 72 hours</div>
+          <div class="bul"><div class="bdot" style="background:var(--dim);"></div><p style="font-size:9px;">Member exits canvas. Flagged for resurrection scoring.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--dim);"></div><p style="font-size:9px;">Win-back sequence fires if resurrection score qualifies.</p></div>
+        </div>
+      </div>
+      <!-- YES branch -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+        <div style="font-size:9px;color:var(--green);font-weight:700;text-align:center;">Yes</div>
+        <div style="background:var(--grad-soft);border:1px solid rgba(192,132,252,0.25);border-radius:10px;padding:9px;height:100%;">
+          <div style="font-size:9px;color:var(--lavender);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Enter Phase 01 — Trial Activation</div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:9px;">Event: free_trial_started fires. Member exits Phase 00 canvas.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:9px;">North star: first deposit made within 7 days.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:9px;">Segmentation carries forward. Profile A, B, and C continue receiving different messaging.</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--lavender);"></div><p style="font-size:9px;">Benchmarks tracked: playlist viewed, Allie question asked, bank connection screen reached.</p></div>
+          <div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(192,132,252,0.2);">
+            <p style="font-size:9px;color:var(--dim);font-style:italic;">The segmentation built in Phase 00 does not reset. It grows. The more she does, the more the canvas knows.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9 -->
+<div class="slide" id="slide-9">
+  <h2>Questions I Need Answered on Day One</h2>
+  <p class="sub">Before building anything I need to understand the infrastructure, the data, the product, and what success means here.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-top:8px;">
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div class="lbl">Infrastructure</div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What is the current martech stack? What CRM platform and what events and attributes are already tracked?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there a data pipeline connecting the app to the CRM? Can canvases be triggered from behavioral events inside the app?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there a CRM or marketing automation platform in place? If not, what does the evaluation and procurement process look like?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there a dedicated sender ID or phone number for SMS so comms do not come from an unknown number?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What does creative resourcing look like? Is there a designer, or is lifecycle expected to build its own creative?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there an existing experiment framework, or does one need to be built from scratch?</p></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div class="lbl">Member Data</div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is the questionnaire data connected to the CRM? Can it be used for segmentation and personalization today?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What defines an active member versus a churned member? What is the current trial to paid conversion rate?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Where is the biggest drop-off: website to download, download to trial, trial to paid, or paid to renewal?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What did members who renewed at year one have in common behaviorally in their first 30 days versus those who canceled?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Do I have an engineering partner for cohort builds, event tracking, and deep link implementation?</p></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div class="lbl">Allie and Product</div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Can Allie conversation data be used as a behavioral trigger in lifecycle canvases? If a member asks Allie about withdrawals, can that fire a proactive comm?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Can Allie conversation topics be passed as event properties to the CRM for use as behavioral triggers?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there a product roadmap item for Allie to proactively surface lifecycle moments, or is that a new concept?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What key actions inside the app correlate with first deposit and long-term retention? What does product already know?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there an in-app inbox or notification center today? If not, is it on the product roadmap?</p></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div class="lbl">Business Goals and Compliance</div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What are the primary, secondary, and tertiary KPIs lifecycle should ladder up to?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Given the current pace of user acquisition, what volume of new members is expected in the next 90 days, and how does that affect our ability to reach statistical significance on early experiments?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Is there a referral program today? If so, what incentive structure exists and what has been tested?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What is the current Trustpilot response strategy? Is lifecycle expected to contribute to reputation improvement?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">Who owns legal and compliance review for lifecycle comms, and what is the typical turnaround for approval?</p></div>
+      <div class="card" style="padding:10px;"><p style="font-size:11px;">What is the legal review SLA for net new comms? Is there a dedicated legal partner for marketing or does it go through a general queue?</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10 -->
+<div class="slide" id="slide-10">
+  <h2>How I Know It's Actually Working</h2>
+  <p class="sub">From pre-launch validation to holdout-proven incrementality. Built to work even without a dedicated analyst.</p>
+  <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px;">
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;">
+      <div class="lbl" style="color:var(--teal);margin-bottom:8px;">Pre-Launch — Before the First Send</div>
+      <div class="g3" style="gap:8px;">
+        <div class="card ct" style="padding:10px;"><div style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:4px;">Step 1: Audience Sizing</div><p style="font-size:11px;">Confirm eligible audience is large enough to reach statistical significance. If no analyst, use CRM platform counts cross-referenced against event trigger data.</p></div>
+        <div class="card ct" style="padding:10px;"><div style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:4px;">Step 2: Event Tracking Confirmed</div><p style="font-size:11px;">Confirm events and attributes are firing correctly. Canvas entries in CRM must match the expected cohort size before anything launches.</p></div>
+        <div class="card ct" style="padding:10px;"><div style="font-size:10px;font-weight:700;color:var(--teal);margin-bottom:4px;">Step 3: Holdout Established</div><p style="font-size:11px;">10% of eligible members withheld before first send. Without this baseline no conversion number can be trusted. Non-negotiable.</p></div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;">
+      <div class="lbl" style="color:var(--lavender);margin-bottom:8px;">During Launch — Checkpoints</div>
+      <div class="g4" style="gap:8px;">
+        <div class="card cl" style="padding:9px;"><div style="font-size:10px;font-weight:700;color:var(--lavender);margin-bottom:3px;">24 Hours</div><p style="font-size:10px;">Canvas entries match expected cohort? Messages sending? If numbers are off, pause before it runs further.</p></div>
+        <div class="card cl" style="padding:9px;"><div style="font-size:10px;font-weight:700;color:var(--lavender);margin-bottom:3px;">3 Days</div><p style="font-size:10px;">Open rates, click rates, delivery rate. Members progressing through canvas steps?</p></div>
+        <div class="card cl" style="padding:9px;"><div style="font-size:10px;font-weight:700;color:var(--lavender);margin-bottom:3px;">7 Days</div><p style="font-size:10px;">Exits and conversions starting to show. Which touchpoints are driving action?</p></div>
+        <div class="card cl" style="padding:9px;"><div style="font-size:10px;font-weight:700;color:var(--lavender);margin-bottom:3px;">30 Days</div><p style="font-size:10px;">Full measurement window. CRM data cross-referenced against backend. Holdout comparison run.</p></div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;">
+      <div class="lbl" style="color:var(--pink);margin-bottom:8px;">Post-Launch — The Three Numbers That Matter</div>
+      <div class="g3" style="gap:8px;">
+        <div class="card" style="padding:10px;border-left:2px solid var(--dim);"><div style="font-size:10px;font-weight:700;color:var(--dim);margin-bottom:3px;">X: Platform Reported</div><p style="font-size:11px;">Opens, clicks, sends, canvas entries. What the CRM says. Never used alone for decisions. Always overstates impact.</p></div>
+        <div class="card cg" style="padding:10px;"><div style="font-size:10px;font-weight:700;color:var(--green);margin-bottom:3px;">Y: Internally Validated</div><p style="font-size:11px;">Cross-reference CRM data against backend conversion data. Removes false positives. If no analyst, use strict attribution windows in the CRM platform.</p></div>
+        <div class="card cp" style="padding:10px;"><div style="font-size:10px;font-weight:700;color:#f9a8d4;margin-bottom:3px;">Z: Holdout-Validated Incremental</div><p style="font-size:11px;">The only number used for budget decisions. What did lifecycle actually cause versus what would have happened organically? This is how VEGA's +18% was confirmed real.</p></div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:8px;"><div class="g3" style="gap:10px;">
+    <div class="card cl" style="padding:10px;"><div class="lbl" style="margin-bottom:5px;">Primary KPIs</div><p style="font-size:10px;">Trial to paid CVR. First deposit rate. Annual renewal rate. Referral rate.</p></div>
+    <div class="card cg" style="padding:10px;">
+      <div class="lbl" style="margin-bottom:5px;">Secondary KPIs</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:rgba(52,211,153,0.08);border-radius:8px;padding:8px;">
+          <div style="font-size:9px;color:var(--green);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:4px;">Engagement</div>
+          <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:10px;">App open frequency</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:10px;">Allie engagement rate — questions asked, portfolio checked</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:10px;">Playlist interaction rate</p></div>
+        </div>
+        <div style="background:rgba(52,211,153,0.08);border-radius:8px;padding:8px;">
+          <div style="font-size:9px;color:var(--green);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:4px;">Deposits</div>
+          <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:10px;">Recurring deposit rate — active auto-invest enabled</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:10px;">Day 30, Day 60, and Day 90 checkpoint attainment rate</p></div>
+          <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:10px;">90-day retention rate</p></div>
+        </div>
+        <div style="background:rgba(52,211,153,0.08);border-radius:8px;padding:8px;">
+          <div style="font-size:9px;color:var(--green);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:4px;">Retention Risk</div>
+          <div class="bul"><div class="bdot" style="background:var(--green);"></div><p style="font-size:10px;">Silent deposit churn rate at 30, 60, and 90 days — still active, not depositing, one bad experience away from canceling</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="card cp" style="padding:10px;"><div class="lbl" style="margin-bottom:5px;">Tertiary KPIs</div><p style="font-size:10px;">Trustpilot score improvement. Support intake reduction. Unsubscribe rate (guardrail only).</p></div>
+  </div></div>
+</div>
+
+<!-- SLIDE 11 -->
+<div class="slide glow-slide" id="slide-11" style="align-items:center;text-align:center;justify-content:center;">
+  <div style="font-size:56px;font-weight:900;letter-spacing:-2.5px;margin-bottom:16px;line-height:1;background:linear-gradient(135deg,#fff 20%,#c084fc 60%,#ec4899 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Thank You</div>
+  <p style="font-size:16px;color:var(--text);margin-bottom:36px;max-width:480px;line-height:1.8;">The product is there. The data is there. The member is there. Lifecycle is the missing piece. I want to build it.</p>
+  <div style="background:rgba(192,132,252,0.08);border:1px solid rgba(192,132,252,0.2);border-radius:14px;padding:16px 36px;margin-bottom:12px;">
+    <div style="font-size:15px;font-weight:700;color:#fff;">Brittany Blackmon</div>
+  </div>
+  <p style="font-size:12px;color:var(--dim);">Let's get to work.</p>
+</div>
+
+</div>
+<div class="nav">
+  <button onclick="prev()">Prev</button>
+  <div class="dots" id="dots"></div>
+  <button onclick="next()">Next</button>
+</div>
+<script>
+let cur=1;const tot=11;
+const tags=['Introduction','Research and Discovery','Investor Maturity Curve','Roadmap Overview','June to November Plan','Chime to Alinea','VEGA Work Sample','Personalized Canvas','Discovery Questions','Measurement','Thank You'];
+function buildDots(){const d=document.getElementById('dots');for(let i=1;i<=tot;i++){const dot=document.createElement('div');dot.className='dot'+(i===1?' active':'');dot.onclick=()=>go(i);d.appendChild(dot);}}
+function go(n){document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.dot').forEach(d=>d.classList.remove('active'));document.getElementById('slide-'+n).classList.add('active');document.querySelectorAll('.dot')[n-1].classList.add('active');document.getElementById('ctr').textContent=n+' / '+tot;document.getElementById('tag').textContent=tags[n-1];cur=n;}
+function next(){if(cur<tot)go(cur+1);}
+function prev(){if(cur>1)go(cur-1);}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')next();if(e.key==='ArrowLeft'||e.key==='ArrowUp')prev();});
+buildDots();
+</script>
+</body>
+</html>
